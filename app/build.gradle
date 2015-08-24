@@ -1,0 +1,43 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+    compileOptions.encoding = 'ISO-8859-1'
+
+    defaultConfig {
+        applicationId "com.unb.bikex"
+        minSdkVersion 10
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        buildTypes{
+            debug{
+                testCoverageEnabled = true
+            }
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.0.0'
+
+    testCompile "org.robolectric:robolectric:3.0"
+
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:2.0.5-beta"
+
+    compile 'com.squareup.dagger:dagger:1.2.+'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.+'
+
+    compile 'com.google.android.gms:play-services-maps:7.5.0'
+
+}

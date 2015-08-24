@@ -1,0 +1,15 @@
+package com.unb.bikex;
+
+import android.view.View;
+
+/**
+ * Created by Charles on 8/16/2015.
+ */
+public interface IMapTrackView {
+    void requestBluetoothEnable(String bluetoothEnable);
+    void showBluetoothConnectionProgressDialog();
+    void hideBluetoothConnectionProgressDialog();
+    void showErrorBluetoothConnection();
+    void showSuccessBluetoothConnection(String deviceName);
+    void finishWithShowErrorBluetoothEnable();
+}

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BikeX</string>
+
+    <string name="new_track_button_name">New Track</string>
+    <string name="start_track_button_name">Start Track</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_map_track">MapTrackActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="bluetooth_connection">Establishing connection</string>
+
+    <string name="bluetooth_connection_error">Could not connect with default device</string>
+    <string name="bluetooth_connection_success">Connected to: </string>
+    <string name="bluetooth_enable_error">This feature requires bluetooth turned on</string>
+
+</resources>
