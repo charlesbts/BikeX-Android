@@ -42,6 +42,7 @@ public class BluetoothConnection extends GenericThread implements IBluetoothConn
 
     @Override
     public void connectToDevice(String address){
+        super.threadId = 15;
         this.address = address;
         new Thread(this).start();
     }

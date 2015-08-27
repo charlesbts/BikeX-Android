@@ -12,4 +12,6 @@ public interface IMapTrackView {
     void showErrorBluetoothConnection();
     void showSuccessBluetoothConnection(String deviceName);
     void finishWithShowErrorBluetoothEnable();
+    void refreshSpeed(String speed);
+    void refreshCadence(String cadence);
 }

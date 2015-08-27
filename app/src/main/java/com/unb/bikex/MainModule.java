@@ -3,10 +3,8 @@ package com.unb.bikex;
 import android.app.Activity;
 
 import com.unb.bikex.adapter.TrackAdapter;
-import com.unb.bikex.model.IMainModel;
+import com.unb.bikex.model.main.IMainModel;
 import com.unb.bikex.presenter.MainPresenter;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;

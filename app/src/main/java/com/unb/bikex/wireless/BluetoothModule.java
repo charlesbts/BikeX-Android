@@ -32,13 +32,7 @@ public class BluetoothModule {
 
     @Provides
     @Singleton
-    public BluetoothSocket provideBluetoothSocket(IBluetoothConnection iBluetoothConnection){
-        return iBluetoothConnection.getBluetoothSocket();
-    }
-
-    @Provides
-    @Singleton
-    public IBluetoothConnected provideBluetoothConnected(BluetoothSocket bluetoothSocket){
-        return new BluetoothConnected(bluetoothSocket);
+    public IBluetoothConnected provideBluetoothConnected(){
+        return new BluetoothConnected();
     }
 }

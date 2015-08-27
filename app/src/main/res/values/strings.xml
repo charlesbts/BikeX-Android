@@ -14,4 +14,7 @@
     <string name="bluetooth_connection_success">Connected to: </string>
     <string name="bluetooth_enable_error">This feature requires bluetooth turned on</string>
 
+    <string name="speed_header">Speed: </string>
+    <string name="cadence_header">Cadence: </string>
+
 </resources>

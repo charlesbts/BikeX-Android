@@ -8,6 +8,7 @@ import android.os.Looper;
  */
 public abstract class GenericThread implements Runnable{
     protected ICallbackThread iListener;
+    protected int threadId;
 
     public abstract void doBackground();
 
@@ -15,11 +16,11 @@ public abstract class GenericThread implements Runnable{
         this.iListener = iListener;
     }
 
-    public void notifyListener() {
+    public void notifyListener(final int threadId) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                iListener.notifyListener();
+                iListener.notifyListener(threadId);
             }
         });
     }
@@ -27,7 +28,7 @@ public abstract class GenericThread implements Runnable{
     @Override
     public void run(){
         doBackground();
-        notifyListener();
+        notifyListener(threadId);
     }
 
 }

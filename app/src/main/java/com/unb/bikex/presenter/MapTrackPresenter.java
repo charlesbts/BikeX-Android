@@ -1,23 +1,22 @@
 package com.unb.bikex.presenter;
 
 import com.unb.bikex.IMapTrackView;
-import com.unb.bikex.R;
-import com.unb.bikex.model.IBikeModel;
+import com.unb.bikex.model.IBluetoothModel;
 
 /**
  * Created by Charles on 8/16/2015.
  */
-public class MapTrackPresenter implements IMapTrackPresenterListener{
+public class MapTrackPresenter implements IBluetoothListener {
     IMapTrackView iMapTrackView;
-    IBikeModel iBikeModel;
+    IBluetoothModel iBluetoothModel;
 
-    public MapTrackPresenter(IMapTrackView iMapTrackView, IBikeModel iBikeModel){
+    public MapTrackPresenter(IMapTrackView iMapTrackView, IBluetoothModel iBluetoothModel){
         this.iMapTrackView = iMapTrackView;
-        this.iBikeModel = iBikeModel;
+        this.iBluetoothModel = iBluetoothModel;
     }
 
     public void onResume(){
-        String bluetoothEnable = iBikeModel.getBluetoothEnable();
+        String bluetoothEnable = iBluetoothModel.getBluetoothEnable();
         if(bluetoothEnable != null) {
             iMapTrackView.requestBluetoothEnable(bluetoothEnable);
         }
@@ -29,8 +28,8 @@ public class MapTrackPresenter implements IMapTrackPresenterListener{
 
     public void getBluetoothConnection(){
         iMapTrackView.showBluetoothConnectionProgressDialog();
-        iBikeModel.setPresenterListener(this);
-        iBikeModel.getBluetoothConnection();
+        iBluetoothModel.setPresenterListener(this);
+        iBluetoothModel.getBluetoothConnection();
     }
 
 
@@ -44,6 +43,16 @@ public class MapTrackPresenter implements IMapTrackPresenterListener{
     public void setSuccessBluetoothConnection(String deviceName){
         iMapTrackView.hideBluetoothConnectionProgressDialog();
         iMapTrackView.showSuccessBluetoothConnection(deviceName);
+    }
+
+    @Override
+    public void refreshSpeedView(float speed){
+        iMapTrackView.refreshSpeed(String.format("%.2f", speed));
+    }
+
+    @Override
+    public void refreshCadenceView(float cadence){
+        iMapTrackView.refreshCadence(String.format("%.2f", cadence));
     }
 
     public void onDestroy(){

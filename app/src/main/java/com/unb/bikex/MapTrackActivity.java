@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 public class MapTrackActivity extends BaseActivity implements IMapTrackView{
     private TextView speedTextView;
-    private TextView cadencyTextView;
+    private TextView cadenceTextView;
     private ProgressDialog bluetoothConnectionProgressDialog;
     @Inject MapTrackPresenter mapTrackPresenter;
 
@@ -29,7 +29,7 @@ public class MapTrackActivity extends BaseActivity implements IMapTrackView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_track);
         speedTextView = (TextView) findViewById(R.id.speed);
-        cadencyTextView = (TextView) findViewById(R.id.cadency);
+        cadenceTextView = (TextView) findViewById(R.id.cadence);
     }
 
 
@@ -84,6 +84,14 @@ public class MapTrackActivity extends BaseActivity implements IMapTrackView{
         finish();
     }
 
+    @Override
+    public void refreshSpeed(String inByte){
+        speedTextView.setText(inByte);
+    }
+
+    public void refreshCadence(String inByte){
+        cadenceTextView.setText(inByte);
+    }
 
     @Override
     protected List<Object> getModules() {

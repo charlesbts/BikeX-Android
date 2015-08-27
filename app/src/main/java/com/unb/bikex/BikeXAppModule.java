@@ -1,7 +1,6 @@
 package com.unb.bikex;
 
-import com.unb.bikex.model.MainModel;
-import com.unb.bikex.model.MainModelModule;
+import com.unb.bikex.model.ModelModule;
 import com.unb.bikex.wireless.BluetoothModule;
 
 import dagger.Module;
@@ -11,7 +10,7 @@ import dagger.Module;
  */
 @Module(
         injects = BikeXApp.class,
-        includes = {BluetoothModule.class, MainModelModule.class}
+        includes = {BluetoothModule.class, ModelModule.class}
 )
 public class BikeXAppModule {
 
