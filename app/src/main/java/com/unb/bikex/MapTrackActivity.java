@@ -3,14 +3,19 @@ package com.unb.bikex;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unb.bikex.presenter.MapTrackPresenter;
+
+import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,8 +24,11 @@ import javax.inject.Inject;
 
 
 public class MapTrackActivity extends BaseActivity implements IMapTrackView{
+    private Button startTrackButton;
     private TextView speedTextView;
     private TextView cadenceTextView;
+    private TextView distanceTextView;
+    private Chronometer chronometer;
     private ProgressDialog bluetoothConnectionProgressDialog;
     @Inject MapTrackPresenter mapTrackPresenter;
 
@@ -28,12 +36,16 @@ public class MapTrackActivity extends BaseActivity implements IMapTrackView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_track);
+        startTrackButton = (Button) findViewById(R.id.startTrack);
         speedTextView = (TextView) findViewById(R.id.speed);
         cadenceTextView = (TextView) findViewById(R.id.cadence);
+        distanceTextView = (TextView) findViewById(R.id.distance);
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
     }
 
 
     public void startTrack(View view){
+        chronometer.setBase(SystemClock.elapsedRealtime());
         mapTrackPresenter.onResume();
     }
 
@@ -89,8 +101,24 @@ public class MapTrackActivity extends BaseActivity implements IMapTrackView{
         speedTextView.setText(inByte);
     }
 
+    @Override
+    public void hideStartTrackButton(){
+        startTrackButton.setVisibility(View.GONE);
+    }
+
+    @Override
     public void refreshCadence(String inByte){
         cadenceTextView.setText(inByte);
+    }
+
+    @Override
+    public void refreshDistance(String inByte){
+        distanceTextView.setText(inByte);
+    }
+
+    @Override
+    public void startChronometer(){
+        chronometer.start();
     }
 
     @Override

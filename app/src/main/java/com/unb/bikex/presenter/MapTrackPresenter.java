@@ -43,16 +43,22 @@ public class MapTrackPresenter implements IBluetoothListener {
     public void setSuccessBluetoothConnection(String deviceName){
         iMapTrackView.hideBluetoothConnectionProgressDialog();
         iMapTrackView.showSuccessBluetoothConnection(deviceName);
+        iMapTrackView.startChronometer();
     }
 
     @Override
     public void refreshSpeedView(float speed){
-        iMapTrackView.refreshSpeed(String.format("%.2f", speed));
+        iMapTrackView.refreshSpeed(String.format("%.1f", speed));
     }
 
     @Override
     public void refreshCadenceView(float cadence){
-        iMapTrackView.refreshCadence(String.format("%.2f", cadence));
+        iMapTrackView.refreshCadence(String.format("%.1f", cadence));
+    }
+
+    @Override
+    public void refreshDistanceView(float distance){
+        iMapTrackView.refreshDistance(String.format("%.1f", distance));
     }
 
     public void onDestroy(){

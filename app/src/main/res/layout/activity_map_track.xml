@@ -17,6 +17,15 @@
         android:onClick="startTrack"
         />
 
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:format="%s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startTrack"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"/>
+
     <TextView
         android:id="@+id/speed_header"
         android:text="@string/speed_header"
@@ -24,10 +33,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:layout_below="@+id/startTrack"
-        android:layout_alignRight="@+id/cadence_header"
-        android:layout_alignEnd="@+id/cadence_header"
-        android:layout_marginTop="29dp" />
+        android:layout_below="@+id/chronometer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/speed"
@@ -36,8 +44,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:layout_alignTop="@+id/speed_header"
+        android:layout_above="@+id/cadence"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/speed_unit"
+        android:text="@string/speed_unit"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/speed"
+        android:layout_alignRight="@+id/startTrack"
+        android:layout_alignEnd="@+id/startTrack" />
 
     <TextView
         android:id="@+id/cadence_header"
@@ -46,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:layout_alignTop="@+id/cadence"
+        android:layout_below="@+id/speed_header"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -57,8 +75,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:layout_marginTop="82dp"
-        android:layout_below="@+id/speed"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/distance"
+        android:layout_alignLeft="@+id/speed"
+        android:layout_alignStart="@+id/speed" />
+
+    <TextView
+        android:id="@+id/cadence_unit"
+        android:text="@string/cadence_unit"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/distance"
+        android:layout_alignRight="@+id/speed_unit"
+        android:layout_alignEnd="@+id/speed_unit" />
+
+    <TextView
+        android:id="@+id/distance_header"
+        android:text="@string/distance_header"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_below="@+id/cadence_header"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:text="0.0"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_alignTop="@+id/distance_header"
+        android:layout_alignLeft="@+id/cadence"
+        android:layout_alignStart="@+id/cadence" />
+
+    <TextView
+        android:id="@+id/distance_unit"
+        android:text="@string/distance_unit"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/distance"
+        android:layout_alignRight="@+id/cadence_unit"
+        android:layout_alignEnd="@+id/cadence_unit" />
 
 </RelativeLayout>

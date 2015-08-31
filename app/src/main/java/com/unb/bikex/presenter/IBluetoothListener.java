@@ -9,4 +9,5 @@ public interface IBluetoothListener {
     void setSuccessBluetoothConnection(String deviceName);
     void refreshSpeedView(float speed);
     void refreshCadenceView(float speed);
+    void refreshDistanceView(float distance);
 }

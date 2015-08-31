@@ -18,17 +18,21 @@ public class BluetoothModel implements IBluetoothModel, ICallbackThread {
 
     private final int ID_SPEED_SENSOR = 13;
     private final int ID_CADENCE_SENSOR = 42;
+    private final int ID_DISTANCE_SENSOR = 24;
     private final double CONVERT_INCH_TO_CENTIMETER = 2.54;
     private final double CONVERT_METER_TO_KILOMETER = 3.6;
     private final int CONVERT_CENTIMETER_TO_METER = 100;
     private final int CONVERT_SECOND_TO_MINUTE = 60;
     private final int FREQUENCY = 4096;
     private final int FLAG_OVERFLOW = 32768;
+    private final float DISTANCE_CONSTANT = (float) (33 * CONVERT_INCH_TO_CENTIMETER * Math.PI)/
+                                                    (CONVERT_CENTIMETER_TO_METER * 1000);
 
     private IBluetoothConnection iBluetoothConnection;
     private IBluetoothConnected iBluetoothConnected;
     private IBluetoothListener iBluetoothListener;
     private int byte1, byte2, byte3;
+    private float speed = 0, cadence = 0, distance = 0;
 
     @Inject
     public BluetoothModel(IBluetoothConnection iBluetoothConnection, IBluetoothConnected iBluetoothConnected){
@@ -77,14 +81,18 @@ public class BluetoothModel implements IBluetoothModel, ICallbackThread {
                     byte1 = iBluetoothConnected.readByte();
                 }
                 while(true){
+                    int packet;
                     byte2 = iBluetoothConnected.readByte();
                     byte3 = iBluetoothConnected.readByte();
+                    packet = handleInfo(byte2, byte3);
                     if (byte1 == ID_SPEED_SENSOR){
-                        float speed = calculateSpeed(33, handleInfo(byte2, byte3));
+                        speed = calculateSpeed(33, packet);
+                        distance++;
                         updateUi(ID_SPEED_SENSOR, speed);
+                        updateUi(ID_DISTANCE_SENSOR, distance * DISTANCE_CONSTANT);
                     }
                     else if(byte1 == ID_CADENCE_SENSOR){
-                        float cadence = calculateCadence(handleInfo(byte2, byte3));
+                        cadence = calculateCadence(packet);
                         updateUi(ID_CADENCE_SENSOR, cadence);
                     }
                     byte1 = iBluetoothConnected.readByte();
@@ -104,6 +112,9 @@ public class BluetoothModel implements IBluetoothModel, ICallbackThread {
                     case ID_CADENCE_SENSOR:
                         iBluetoothListener.refreshCadenceView(value);
                         break;
+                    case ID_DISTANCE_SENSOR:
+                        iBluetoothListener.refreshDistanceView(value);
+                        break;
                     default:
                         /* Do nothing */
                         break;
@@ -122,12 +133,18 @@ public class BluetoothModel implements IBluetoothModel, ICallbackThread {
     }
 
     private float calculateCadence(int packet){
-        return  (float) (CONVERT_SECOND_TO_MINUTE*FREQUENCY)/packet;
+        if(packet != FLAG_OVERFLOW)
+            return  (float) (CONVERT_SECOND_TO_MINUTE*FREQUENCY)/packet;
+        else
+            return cadence;
     }
 
-    private float calculateSpeed(int aroSize, int packet){
-        return (float) (aroSize * CONVERT_INCH_TO_CENTIMETER * Math.PI * FREQUENCY * CONVERT_METER_TO_KILOMETER) /
+    private float calculateSpeed(int wheelSize, int packet){
+        if(packet != FLAG_OVERFLOW)
+            return (float) (wheelSize * CONVERT_INCH_TO_CENTIMETER * Math.PI * FREQUENCY * CONVERT_METER_TO_KILOMETER) /
                 (packet * CONVERT_CENTIMETER_TO_METER);
+        else
+            return speed;
     }
 
 

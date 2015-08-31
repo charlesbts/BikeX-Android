@@ -14,4 +14,7 @@ public interface IMapTrackView {
     void finishWithShowErrorBluetoothEnable();
     void refreshSpeed(String speed);
     void refreshCadence(String cadence);
+    void refreshDistance(String distance);
+    void startChronometer();
+    void hideStartTrackButton();
 }
