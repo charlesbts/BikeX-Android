@@ -26,5 +26,7 @@
 
     <string name="preferences_update_success">Preferences updated</string>
     <string name="preferences_update_message">Preferences should be update</string>
+    <string name="bluetooth_device_instruction">Bluetooth device(s):</string>
+    <string name="wheel_size_unit">inches</string>
 
 </resources>

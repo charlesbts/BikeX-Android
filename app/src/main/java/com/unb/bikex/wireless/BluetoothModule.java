@@ -35,4 +35,9 @@ public class BluetoothModule {
     public IBluetoothConnected provideBluetoothConnected(){
         return new BluetoothConnected();
     }
+
+    @Provides
+    public IBluetoothSetup provideIBluetoothSetup(BluetoothAdapter bluetoothAdapter){
+        return new BluetoothSetup(bluetoothAdapter);
+    }
 }

@@ -1,16 +1,22 @@
 package com.unb.bikex.view;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unb.bikex.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.adapter.BluetoothDeviceAdapter;
 import com.unb.bikex.presenter.UserPreferencesPresenter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +27,7 @@ import javax.inject.Inject;
 /**
  * Created by Charles on 9/13/2015.
  */
-public class UserPreferencesActivity extends BaseActivity implements IUserPreferencesView{
+public class UserPreferencesActivity extends BaseActivity implements IUserPreferencesView, AdapterView.OnItemClickListener{
 
     @Inject UserPreferencesPresenter userPreferencesPresenter;
     @Inject BluetoothDeviceAdapter bluetoothDeviceAdapter;
@@ -33,6 +39,7 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
         setContentView(R.layout.activity_user_preferences);
         wheelSizeEditText = (EditText) findViewById(R.id.wheelSizeEditText);
         bluetoothDeviceListView = (ListView) findViewById(R.id.bluetoothDeviceListView);
+        bluetoothDeviceListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -42,7 +49,8 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
     }
 
     public void saveUserPreferences(View view){
-        userPreferencesPresenter.setData(wheelSizeEditText.getText().toString());
+        String bluetoothMacAddress = bluetoothDeviceAdapter.getBluetoothMacAddress();
+        userPreferencesPresenter.setData(wheelSizeEditText.getText().toString(), bluetoothMacAddress);
     }
 
     @Override
@@ -60,6 +68,11 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
     public void setItemsBluetoothDeviceListView(List<String> items){
         bluetoothDeviceAdapter.setBluetoothDeviceList(items);
         bluetoothDeviceListView.setAdapter(bluetoothDeviceAdapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+        Toast.makeText(UserPreferencesActivity.this, bluetoothDeviceAdapter.getBluetoothMacAddress(), Toast.LENGTH_LONG).show();
     }
 
     @Override

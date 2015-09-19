@@ -22,12 +22,23 @@
     <TextView
         android:id="@+id/wheelSizeTextView"
         android:text="@string/wheel_size_text_view"
+        android:textColor="#00000F"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/abc_text_size_large_material"
-        android:layout_below="@+id/saveUserPreferencesButton"
+        android:layout_above="@+id/bluetooth_device_text_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/wheel_size_unit"
+        android:text="@string/wheel_size_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_above="@+id/bluetooth_device_text_view"
+        android:layout_toRightOf="@+id/wheelSizeEditText"
+        android:layout_toEndOf="@+id/wheelSizeEditText" />
 
     <EditText
         android:id="@+id/wheelSizeEditText"
@@ -35,13 +46,27 @@
         android:maxLength="2"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:layout_alignTop="@+id/wheelSizeTextView"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/saveUserPreferencesButton"
+        android:layout_toRightOf="@+id/wheelSizeTextView"
+        android:layout_toEndOf="@+id/wheelSizeTextView" />
+
+    <TextView
+        android:id="@+id/bluetooth_device_text_view"
+        android:text="@string/bluetooth_device_instruction"
+        android:maxLines="1"
+        android:textColor="#00000F"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_below="@+id/wheelSizeEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/saveUserPreferencesButton"
+        android:layout_alignEnd="@+id/saveUserPreferencesButton" />
 
     <ListView
         android:id="@+id/bluetoothDeviceListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/wheelSizeEditText"
+        android:layout_below="@+id/bluetooth_device_text_view"
         />
 </RelativeLayout>

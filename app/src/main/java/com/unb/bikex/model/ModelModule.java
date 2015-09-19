@@ -10,6 +10,7 @@ import com.unb.bikex.model.userpreferences.UserPreferencesModel;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;
 import com.unb.bikex.wireless.IBluetoothConnected;
 import com.unb.bikex.wireless.IBluetoothConnection;
+import com.unb.bikex.wireless.IBluetoothSetup;
 
 import javax.inject.Singleton;
 
@@ -38,7 +39,8 @@ public class ModelModule {
     }
 
     @Provides
-    public IUserPreferencesModel provideIUserPreferencesModel(UserSharedPreferences userSharedPreferences){
-        return  new UserPreferencesModel(userSharedPreferences);
+    public IUserPreferencesModel provideIUserPreferencesModel(UserSharedPreferences userSharedPreferences,
+                                                              IBluetoothSetup iBluetoothSetup){
+        return  new UserPreferencesModel(userSharedPreferences, iBluetoothSetup);
     }
 }

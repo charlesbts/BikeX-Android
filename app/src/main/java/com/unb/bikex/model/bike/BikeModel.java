@@ -3,6 +3,7 @@ package com.unb.bikex.model.bike;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.unb.bikex.app.BikeXApp;
 import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
@@ -28,8 +29,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     private final int CONVERT_SECOND_TO_MINUTE = 60;
     private final int FREQUENCY = 4096;
     private final int FLAG_OVERFLOW = 32768;
-    private final float DISTANCE_CONSTANT = (float) (33 * CONVERT_INCH_TO_CENTIMETER * Math.PI)/
-                                                    (CONVERT_CENTIMETER_TO_METER * 1000);
+    private float DISTANCE_CONSTANT;
 
     private IBluetoothConnection iBluetoothConnection;
     private String bluetoothMacAddress;
@@ -61,6 +61,8 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     @Override
     public void prepareUserDependency() throws NullPointerException{
         bluetoothMacAddress = userSharedPreferences.retrieveBluetoothMacAddress();
+        wheelSize = userSharedPreferences.retrieveWheelSize();
+        DISTANCE_CONSTANT = (float) (wheelSize * CONVERT_INCH_TO_CENTIMETER * Math.PI)/(CONVERT_CENTIMETER_TO_METER * 1000);
         if(bluetoothMacAddress == null){
             throw new NullPointerException();
         }
@@ -69,9 +71,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     @Override
     public void getBluetoothConnection(){
         iBluetoothConnection.setListener(this);
-
         iBluetoothConnection.connectToDevice(bluetoothMacAddress);
-        //iBluetoothConnection.connectToDevice("30:15:01:16:03:90");
     }
 
     @Override
@@ -111,7 +111,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         int packet;
         packet = handleInfo(byte2, byte3);
         if (byte1 == ID_SPEED_SENSOR){
-            speed = calculateSpeed(33, packet);
+            speed = calculateSpeed(wheelSize, packet);
             distance++;
             updateUi(ID_SPEED_SENSOR, speed);
             updateUi(ID_DISTANCE_SENSOR, distance * DISTANCE_CONSTANT);
