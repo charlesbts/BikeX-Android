@@ -17,13 +17,13 @@
 
 
     <application
-        android:name=".BikeXApp"
+        android:name=".app.BikeXApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".view.main.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,8 +32,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MapTrackActivity"
+            android:name=".view.MapTrackActivity"
             android:label="@string/title_activity_map_track" >
+        </activity>
+
+        <activity
+            android:name=".view.UserPreferencesActivity"
+            android:label="@string/title_activity_user_preferences" >
         </activity>
 
         <meta-data

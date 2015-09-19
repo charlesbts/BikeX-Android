@@ -1,35 +1,41 @@
 package com.unb.bikex.presenter;
 
-import com.unb.bikex.IMapTrackView;
-import com.unb.bikex.model.IBluetoothModel;
+import com.unb.bikex.view.IMapTrackView;
+import com.unb.bikex.model.bike.IBikeModel;
 
 /**
  * Created by Charles on 8/16/2015.
  */
-public class MapTrackPresenter implements IBluetoothListener {
+public class MapTrackPresenter implements IBikeListener {
     IMapTrackView iMapTrackView;
-    IBluetoothModel iBluetoothModel;
+    IBikeModel iBikeModel;
 
-    public MapTrackPresenter(IMapTrackView iMapTrackView, IBluetoothModel iBluetoothModel){
+    public MapTrackPresenter(IMapTrackView iMapTrackView, IBikeModel iBikeModel){
         this.iMapTrackView = iMapTrackView;
-        this.iBluetoothModel = iBluetoothModel;
+        this.iBikeModel = iBikeModel;
     }
 
     public void onResume(){
-        String bluetoothEnable = iBluetoothModel.getBluetoothEnable();
-        if(bluetoothEnable != null) {
-            iMapTrackView.requestBluetoothEnable(bluetoothEnable);
+        try {
+            iBikeModel.prepareUserDependency();
+            String bluetoothEnable = iBikeModel.getBluetoothEnable();
+            if (bluetoothEnable != null) {
+                iMapTrackView.requestBluetoothEnable(bluetoothEnable);
+            }
+            else {
+                getBluetoothConnection();
+            }
         }
-        else{
-            getBluetoothConnection();
+        catch (NullPointerException sharedPreferences){
+            iMapTrackView.startUserPreferencesActivity();
         }
 
     }
 
     public void getBluetoothConnection(){
         iMapTrackView.showBluetoothConnectionProgressDialog();
-        iBluetoothModel.setPresenterListener(this);
-        iBluetoothModel.getBluetoothConnection();
+        iBikeModel.setPresenterListener(this);
+        iBikeModel.getBluetoothConnection();
     }
 
 
@@ -44,6 +50,7 @@ public class MapTrackPresenter implements IBluetoothListener {
         iMapTrackView.hideBluetoothConnectionProgressDialog();
         iMapTrackView.showSuccessBluetoothConnection(deviceName);
         iMapTrackView.startChronometer();
+        iBikeModel.readForever();
     }
 
     @Override

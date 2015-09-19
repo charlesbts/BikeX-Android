@@ -3,6 +3,8 @@ package com.unb.bikex;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 
+import com.unb.bikex.view.main.MainActivity;
+
 /**
  * Created by Charles on 7/25/2015.
  */

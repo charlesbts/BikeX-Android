@@ -1,8 +1,9 @@
 package com.unb.bikex;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+
+import com.unb.bikex.app.BikeXApp;
 
 import java.util.List;
 

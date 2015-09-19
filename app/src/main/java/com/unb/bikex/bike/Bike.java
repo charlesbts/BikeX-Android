@@ -1,6 +1,6 @@
 package com.unb.bikex.bike;
 
-import com.unb.bikex.model.IBluetoothModel;
+import com.unb.bikex.model.bike.IBikeModel;
 import com.unb.bikex.wireless.IBluetoothConnected;
 
 /**
@@ -8,11 +8,11 @@ import com.unb.bikex.wireless.IBluetoothConnected;
  */
 public class Bike {
     private IBluetoothConnected iBluetoothConnected;
-    private IBluetoothModel iBikeModel;
+    private IBikeModel iBikeModel;
     private int speed;
     private int cadency;
 
-    public Bike(IBluetoothConnected iBluetoothConnected, IBluetoothModel iBikeModel){
+    public Bike(IBluetoothConnected iBluetoothConnected, IBikeModel iBikeModel){
 
     }
 }
