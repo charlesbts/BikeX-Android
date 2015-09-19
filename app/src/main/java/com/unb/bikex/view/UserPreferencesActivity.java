@@ -1,6 +1,7 @@
 package com.unb.bikex.view;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +28,7 @@ import javax.inject.Inject;
 /**
  * Created by Charles on 9/13/2015.
  */
-public class UserPreferencesActivity extends BaseActivity implements IUserPreferencesView, AdapterView.OnItemClickListener{
+public class UserPreferencesActivity extends BaseActivity implements IUserPreferencesView{
 
     @Inject UserPreferencesPresenter userPreferencesPresenter;
     @Inject BluetoothDeviceAdapter bluetoothDeviceAdapter;
@@ -39,7 +40,6 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
         setContentView(R.layout.activity_user_preferences);
         wheelSizeEditText = (EditText) findViewById(R.id.wheelSizeEditText);
         bluetoothDeviceListView = (ListView) findViewById(R.id.bluetoothDeviceListView);
-        bluetoothDeviceListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -71,8 +71,27 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        Toast.makeText(UserPreferencesActivity.this, bluetoothDeviceAdapter.getBluetoothMacAddress(), Toast.LENGTH_LONG).show();
+    public void requestBluetoothEnable(String bluetoothEnable){
+        startActivityForResult(new Intent(bluetoothEnable), 42);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 42 && resultCode == RESULT_OK){
+            userPreferencesPresenter.onResume();
+        }
+        else if(requestCode == 42 && resultCode == RESULT_CANCELED){
+            userPreferencesPresenter.onDestroy();
+        }
+
+    }
+
+    @Override
+    public void finishWithShowErrorBluetoothEnable(){
+        Toast.makeText(UserPreferencesActivity.this, R.string.bluetooth_enable_error, Toast.LENGTH_LONG).show();
+        finish();
     }
 
     @Override

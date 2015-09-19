@@ -42,7 +42,13 @@ public class UserPreferencesModel implements IUserPreferencesModel{
     }
 
     @Override
-    public List<String> getBluetoothDeviceList(){
-        return iBluetoothSetup.getPairedDeviceList();
+    public List<String> getBluetoothDeviceList() throws IllegalStateException{
+        String enable = iBluetoothSetup.enable();
+        if(enable == null) {
+            return iBluetoothSetup.getPairedDeviceList();
+        }
+        else{
+            throw new IllegalStateException(enable);
+        }
     }
 }

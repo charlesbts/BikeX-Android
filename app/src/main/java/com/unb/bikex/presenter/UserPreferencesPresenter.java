@@ -27,8 +27,13 @@ public class UserPreferencesPresenter {
     }
 
     public void onResume(){
-        List<String> device = iUserPreferencesModel.getBluetoothDeviceList();
-        iUserPreferencesView.setItemsBluetoothDeviceListView(device);
+        try {
+            List<String> device = iUserPreferencesModel.getBluetoothDeviceList();
+            iUserPreferencesView.setItemsBluetoothDeviceListView(device);
+        }
+        catch (IllegalStateException bluetoothIsNotEnable){
+            iUserPreferencesView.requestBluetoothEnable(bluetoothIsNotEnable.getMessage());
+        }
     }
 
     public void setData(String wheelSize, String bluetoothMacAddress){
@@ -49,5 +54,9 @@ public class UserPreferencesPresenter {
         catch (IllegalArgumentException wheelOutOfRange){
             iUserPreferencesView.showErrorSavePreferences(wheelOutOfRange.getMessage());
         }
+    }
+
+    public void onDestroy(){
+        iUserPreferencesView.finishWithShowErrorBluetoothEnable();
     }
 }

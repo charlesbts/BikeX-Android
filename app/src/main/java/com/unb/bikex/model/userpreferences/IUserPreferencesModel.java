@@ -9,5 +9,5 @@ public interface IUserPreferencesModel {
     void setBluetoothMacAddress(String bluetoothMacAddress);
     void setWheelSize(int wheelSize) throws IllegalArgumentException;
     void save();
-    List<String> getBluetoothDeviceList();
+    List<String> getBluetoothDeviceList() throws IllegalStateException;
 }
