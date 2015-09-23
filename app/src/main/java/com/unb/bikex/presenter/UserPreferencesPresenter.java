@@ -1,14 +1,9 @@
 package com.unb.bikex.presenter;
 
-import android.util.Log;
-
-import com.unb.bikex.R;
 import com.unb.bikex.app.BikeXApp;
-import com.unb.bikex.bike.Bike;
 import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
-import com.unb.bikex.view.IUserPreferencesView;
+import com.unb.bikex.view.userpreferences.IUserPreferencesView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;

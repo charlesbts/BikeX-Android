@@ -38,6 +38,10 @@ public class MapTrackPresenter implements IBikeListener {
         iBikeModel.getBluetoothConnection();
     }
 
+    public void getBluetoothDisconnection(){
+        iBikeModel.getBluetoothDisconnection();
+    }
+
 
     @Override
     public void setErrorBluetoothConnection(){

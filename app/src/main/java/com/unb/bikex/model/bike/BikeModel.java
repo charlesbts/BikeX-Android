@@ -13,6 +13,8 @@ import com.unb.bikex.presenter.IBikeListener;
 import com.unb.bikex.wireless.IBluetoothConnected;
 import com.unb.bikex.wireless.IBluetoothConnection;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 /**
@@ -72,6 +74,16 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     public void getBluetoothConnection(){
         iBluetoothConnection.setListener(this);
         iBluetoothConnection.connectToDevice(bluetoothMacAddress);
+    }
+
+    @Override
+    public void getBluetoothDisconnection(){
+        try {
+            iBluetoothConnection.disconnectToDevice();
+        }
+        catch (IOException e){
+
+        }
     }
 
     @Override

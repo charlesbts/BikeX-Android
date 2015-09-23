@@ -12,6 +12,8 @@
 
     <string name="hello_world">Hello world!</string>
 
+    <string name="tab_sensors">Sensors</string>
+    <string name="tab_map">Map</string>
     <string name="bluetooth_connection">Establishing connection</string>
     <string name="bluetooth_connection_error">Could not connect with default device</string>
     <string name="bluetooth_connection_success">Connected to: </string>

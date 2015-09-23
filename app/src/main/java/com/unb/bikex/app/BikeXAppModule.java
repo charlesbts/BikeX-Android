@@ -1,7 +1,5 @@
 package com.unb.bikex.app;
 
-import com.unb.bikex.app.BikeXApp;
-import com.unb.bikex.bike.Bike;
 import com.unb.bikex.model.ModelModule;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;
 import com.unb.bikex.wireless.BluetoothModule;

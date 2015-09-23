@@ -37,9 +37,16 @@
         </activity>
 
         <activity
-            android:name=".view.UserPreferencesActivity"
+            android:name=".view.userpreferences.UserPreferencesActivity"
             android:label="@string/title_activity_user_preferences" >
         </activity>
+
+
+        <activity
+            android:name=".view.TrackActivity"
+            android:label="TabsTest" >
+        </activity>
+
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

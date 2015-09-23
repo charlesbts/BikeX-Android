@@ -10,6 +10,7 @@ public interface IBikeModel {
     void setPresenterListener(IBikeListener listener);
     String getBluetoothEnable();
     void getBluetoothConnection();
+    void getBluetoothDisconnection();
     void readForever();
     void prepareUserDependency() throws NullPointerException;
 }

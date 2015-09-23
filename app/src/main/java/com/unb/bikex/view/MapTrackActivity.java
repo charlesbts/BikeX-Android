@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.unb.bikex.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.presenter.MapTrackPresenter;
-import com.unb.bikex.presenter.UserPreferencesPresenter;
+import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
 
 import java.util.Arrays;
 import java.util.List;

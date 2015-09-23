@@ -1,7 +1,8 @@
 package com.unb.bikex;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.unb.bikex.app.BikeXApp;
 
@@ -12,7 +13,7 @@ import dagger.ObjectGraph;
 /**
  * Created by Charles on 8/6/2015.
  */
-public abstract class BaseActivity extends ActionBarActivity{
+public abstract class BaseActivity extends AppCompatActivity {
     protected ObjectGraph activityGraph;
 
     @Override
@@ -26,6 +27,10 @@ public abstract class BaseActivity extends ActionBarActivity{
     protected void onDestroy() {
         super.onDestroy();
         activityGraph = null;
+    }
+
+    public void inject(Object object){
+        activityGraph.inject(object);
     }
 
     protected abstract List<Object> getModules();

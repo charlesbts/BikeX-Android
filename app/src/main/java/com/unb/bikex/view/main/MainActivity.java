@@ -14,6 +14,7 @@ import com.unb.bikex.R;
 import com.unb.bikex.adapter.TrackAdapter;
 import com.unb.bikex.presenter.MainPresenter;
 import com.unb.bikex.view.MapTrackActivity;
+import com.unb.bikex.view.TrackActivity;
 
 
 import java.util.Arrays;
@@ -23,7 +24,6 @@ import javax.inject.Inject;
 
 
 public class MainActivity extends BaseActivity implements IMainView {
-    private Button newTrackButton;
     private ListView trackListView;
     @Inject MainPresenter mainPresenter;
     @Inject TrackAdapter trackAdapter;
@@ -32,7 +32,6 @@ public class MainActivity extends BaseActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        newTrackButton = (Button) findViewById(R.id.newTrackButton);
         trackListView = (ListView) findViewById(R.id.trackListView);
     }
 
@@ -49,7 +48,8 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     public void invokeMapTrack(View view){
-        Intent intent = new Intent(MainActivity.this, MapTrackActivity.class);
+        //Intent intent = new Intent(MainActivity.this, MapTrackActivity.class);
+        Intent intent = new Intent(MainActivity.this, TrackActivity.class);
         startActivity(intent);
     }
 
