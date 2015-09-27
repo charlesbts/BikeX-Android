@@ -6,16 +6,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.unb.bikex.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.adapter.TrackAdapter;
 import com.unb.bikex.presenter.MainPresenter;
-import com.unb.bikex.view.MapTrackActivity;
 import com.unb.bikex.view.TrackActivity;
-
+import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -72,9 +70,9 @@ public class MainActivity extends BaseActivity implements IMainView {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_user_preferences) {
+            Intent intent = new Intent(MainActivity.this, UserPreferencesActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

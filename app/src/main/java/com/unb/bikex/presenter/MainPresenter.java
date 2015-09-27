@@ -1,7 +1,7 @@
 package com.unb.bikex.presenter;
 
-import com.unb.bikex.view.main.IMainView;
 import com.unb.bikex.model.main.IMainModel;
+import com.unb.bikex.view.main.IMainView;
 
 /**
  * Created by Charles on 8/4/2015.

@@ -131,7 +131,7 @@ public class MapTrackActivity extends BaseActivity implements IMapTrackView {
     }
 
     @Override
-    public void startChronometer(){
+    public void startTrack(){
         chronometer.start();
     }
 

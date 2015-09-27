@@ -1,15 +1,12 @@
 package com.unb.bikex.model.bike;
 
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.unb.bikex.app.BikeXApp;
-import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
+import com.unb.bikex.presenter.IBikeListener;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;
 import com.unb.bikex.threadutils.ICallbackThread;
-import com.unb.bikex.presenter.IBikeListener;
 import com.unb.bikex.wireless.IBluetoothConnected;
 import com.unb.bikex.wireless.IBluetoothConnection;
 
@@ -32,6 +29,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     private final int FREQUENCY = 4096;
     private final int FLAG_OVERFLOW = 32768;
     private float DISTANCE_CONSTANT;
+    private volatile boolean isDoneFlag;
 
     private IBluetoothConnection iBluetoothConnection;
     private String bluetoothMacAddress;
@@ -79,6 +77,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     @Override
     public void getBluetoothDisconnection(){
         try {
+            isDoneFlag = false;
             iBluetoothConnection.disconnectToDevice();
         }
         catch (IOException e){
@@ -98,6 +97,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         else {
             iBikeListener.setSuccessBluetoothConnection(iBluetoothConnection.getDeviceName());
             iBluetoothConnected.setBluetoothSocket(iBluetoothConnection.getBluetoothSocket());
+            isDoneFlag = true;
         }
     }
 
@@ -109,7 +109,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
                 while (byte1 != ID_SPEED_SENSOR && byte1 != ID_CADENCE_SENSOR) { /* Synchronize */
                     byte1 = iBluetoothConnected.readByte();
                 }
-                while(true){
+                while(isDoneFlag){
                     byte2 = iBluetoothConnected.readByte();
                     byte3 = iBluetoothConnected.readByte();
                     updateModel();
@@ -132,6 +132,8 @@ public class BikeModel implements IBikeModel, ICallbackThread {
             cadence = calculateCadence(packet);
             updateUi(ID_CADENCE_SENSOR, cadence);
         }
+        Log.d("NewSpeed", Float.toString(speed));
+        Log.d("NewCadence", Float.toString(cadence));
     }
 
     private void updateUi(final int idSensor, final float value){

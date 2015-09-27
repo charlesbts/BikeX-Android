@@ -61,7 +61,10 @@ public class BluetoothConnection extends GenericThread implements IBluetoothConn
 
     @Override
     public void disconnectToDevice() throws IOException{
-        bluetoothSocket.close();
+        if(flagIsConnected) {
+            bluetoothSocket.close();
+            flagIsConnected = false;
+        }
     }
 
     @Override

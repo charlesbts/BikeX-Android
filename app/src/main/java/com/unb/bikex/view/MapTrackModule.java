@@ -1,16 +1,9 @@
 package com.unb.bikex.view;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
-
-import com.unb.bikex.app.BikeXApp;
 import com.unb.bikex.app.BikeXAppModule;
 import com.unb.bikex.model.bike.BikeModel;
 import com.unb.bikex.model.bike.IBikeModel;
 import com.unb.bikex.presenter.MapTrackPresenter;
-import com.unb.bikex.view.IMapTrackView;
-import com.unb.bikex.view.MapTrackActivity;
 
 import javax.inject.Singleton;
 

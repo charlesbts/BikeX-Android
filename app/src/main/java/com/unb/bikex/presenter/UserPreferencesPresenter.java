@@ -1,12 +1,9 @@
 package com.unb.bikex.presenter;
 
-import com.unb.bikex.app.BikeXApp;
 import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
 import com.unb.bikex.view.userpreferences.IUserPreferencesView;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Created by Charles on 9/13/2015.
@@ -14,7 +11,6 @@ import javax.inject.Inject;
 public class UserPreferencesPresenter {
     private IUserPreferencesView iUserPreferencesView;
     private IUserPreferencesModel iUserPreferencesModel;
-    @Inject BikeXApp bikeXApp;
 
     public UserPreferencesPresenter(IUserPreferencesView iUserPreferencesView, IUserPreferencesModel iUserPreferencesModel){
         this.iUserPreferencesView = iUserPreferencesView;
@@ -23,8 +19,13 @@ public class UserPreferencesPresenter {
 
     public void onResume(){
         try {
+            int wheelSize;
             List<String> device = iUserPreferencesModel.getBluetoothDeviceList();
             iUserPreferencesView.setItemsBluetoothDeviceListView(device);
+            wheelSize = iUserPreferencesModel.getWheelSize();
+            if(wheelSize != 0) {
+                iUserPreferencesView.setWheelSizeEditText(Integer.toString(wheelSize));
+            }
         }
         catch (IllegalStateException bluetoothIsNotEnable){
             iUserPreferencesView.requestBluetoothEnable(bluetoothIsNotEnable.getMessage());

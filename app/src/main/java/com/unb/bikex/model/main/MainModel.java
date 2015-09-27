@@ -1,7 +1,5 @@
 package com.unb.bikex.model.main;
 
-import com.unb.bikex.model.main.IMainModel;
-
 import java.util.ArrayList;
 import java.util.List;
 

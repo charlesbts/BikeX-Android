@@ -1,8 +1,6 @@
 package com.unb.bikex.wireless;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothSocket;
-
 
 import javax.inject.Singleton;
 

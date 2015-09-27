@@ -63,6 +63,11 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
     }
 
     @Override
+    public void setWheelSizeEditText(String wheelSize){
+        wheelSizeEditText.setText(wheelSize);
+    }
+
+    @Override
     public void requestBluetoothEnable(String bluetoothEnable){
         startActivityForResult(new Intent(bluetoothEnable), 42);
     }

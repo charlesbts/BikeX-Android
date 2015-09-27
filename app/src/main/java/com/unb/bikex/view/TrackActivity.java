@@ -32,13 +32,6 @@ public class TrackActivity extends BaseActivity {
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
-
-        /* TODO: Apenas caso de teste view de preferencias */
-        SharedPreferences teste = getSharedPreferences("userPreferences", AppCompatActivity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = teste.edit();
-        editor.clear();
-        editor.commit();
-
     }
 
 

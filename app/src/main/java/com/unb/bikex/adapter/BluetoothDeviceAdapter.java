@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.unb.bikex.R;
 
-
 import java.util.List;
 
 /**

@@ -3,6 +3,7 @@
 
     <string name="new_track_button_name">New Track</string>
     <string name="start_track_button_name">Start Track</string>
+    <string name="stop_track_button_name">Stop Track</string>
     <string name="save_user_preferences_button_name">Save Preferences</string>
 
     <string name="action_settings">Settings</string>

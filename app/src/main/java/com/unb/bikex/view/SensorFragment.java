@@ -1,14 +1,10 @@
 package com.unb.bikex.view;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.text.style.BulletSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +14,6 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.unb.bikex.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.presenter.MapTrackPresenter;
 import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
@@ -28,7 +23,7 @@ import javax.inject.Inject;
 /**
  * Created by Charles on 9/22/2015.
  */
-public class SensorFragment extends BaseFragment implements IMapTrackView{
+public class SensorFragment extends BaseFragment implements IMapTrackView, View.OnLongClickListener{
 
     @Inject MapTrackPresenter mapTrackPresenter;
 
@@ -38,6 +33,7 @@ public class SensorFragment extends BaseFragment implements IMapTrackView{
     private TextView distanceTextView;
     private Chronometer chronometer;
     private ProgressDialog bluetoothConnectionProgressDialog;
+    private boolean isTrackOnFlag = false;
 
 
     @Override
@@ -56,13 +52,7 @@ public class SensorFragment extends BaseFragment implements IMapTrackView{
         distanceTextView = (TextView) view.findViewById(R.id.distance);
         chronometer = (Chronometer) view.findViewById(R.id.chronometer);
 
-        startTrackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chronometer.setBase(SystemClock.elapsedRealtime());
-                mapTrackPresenter.onResume();
-            }
-        });
+        startTrackButton.setOnLongClickListener(this);
 
         return view;
     }
@@ -142,7 +132,9 @@ public class SensorFragment extends BaseFragment implements IMapTrackView{
     }
 
     @Override
-    public void startChronometer(){
+    public void startTrack(){
+        isTrackOnFlag = true;
+        startTrackButton.setText(R.string.stop_track_button_name);
         chronometer.start();
     }
 
@@ -151,6 +143,21 @@ public class SensorFragment extends BaseFragment implements IMapTrackView{
         Toast.makeText(getActivity(), getString(R.string.preferences_update_message), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getActivity(), UserPreferencesActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onLongClick(View view){
+        if(!isTrackOnFlag) {
+            chronometer.setBase(SystemClock.elapsedRealtime());
+            mapTrackPresenter.onResume();
+        }
+        else{
+            mapTrackPresenter.getBluetoothDisconnection();
+            chronometer.stop();
+            isTrackOnFlag = false;
+            startTrackButton.setText(R.string.start_track_button_name);
+        }
+        return true;
     }
 
 }

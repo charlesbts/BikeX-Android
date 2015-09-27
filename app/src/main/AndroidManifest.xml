@@ -44,7 +44,7 @@
 
         <activity
             android:name=".view.TrackActivity"
-            android:label="TabsTest" >
+            android:label="Track" >
         </activity>
 
 

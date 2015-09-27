@@ -6,8 +6,6 @@ import com.unb.bikex.adapter.TrackAdapter;
 import com.unb.bikex.app.BikeXAppModule;
 import com.unb.bikex.model.main.IMainModel;
 import com.unb.bikex.presenter.MainPresenter;
-import com.unb.bikex.view.main.IMainView;
-import com.unb.bikex.view.main.MainActivity;
 
 import dagger.Module;
 import dagger.Provides;

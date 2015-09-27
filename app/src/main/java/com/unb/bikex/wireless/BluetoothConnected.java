@@ -3,9 +3,6 @@ package com.unb.bikex.wireless;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
-import com.unb.bikex.threadutils.GenericThread;
-import com.unb.bikex.threadutils.ICallbackThread;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -40,6 +37,7 @@ public class BluetoothConnected implements IBluetoothConnected {
         try{
             inputStream = bluetoothSocket.getInputStream();
             inByte = inputStream.read();
+            Log.d("NewByte", String.valueOf(inByte));
         }
         catch (IOException readException){
             Log.d("BluetoothConnected.r", readException.getMessage());

@@ -5,10 +5,8 @@ import android.app.Activity;
 import com.unb.bikex.adapter.BluetoothDeviceAdapter;
 import com.unb.bikex.app.BikeXAppModule;
 import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
-import com.unb.bikex.sharedpreferences.UserSharedPreferences;
 import com.unb.bikex.presenter.UserPreferencesPresenter;
-import com.unb.bikex.view.userpreferences.IUserPreferencesView;
-import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
+import com.unb.bikex.sharedpreferences.UserSharedPreferences;
 
 import dagger.Module;
 import dagger.Provides;

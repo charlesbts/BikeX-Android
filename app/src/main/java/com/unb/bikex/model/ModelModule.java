@@ -1,6 +1,5 @@
 package com.unb.bikex.model;
 
-import com.unb.bikex.app.BikeXApp;
 import com.unb.bikex.model.bike.BikeModel;
 import com.unb.bikex.model.bike.IBikeModel;
 import com.unb.bikex.model.main.IMainModel;

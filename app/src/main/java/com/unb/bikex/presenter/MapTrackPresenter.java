@@ -1,7 +1,7 @@
 package com.unb.bikex.presenter;
 
-import com.unb.bikex.view.IMapTrackView;
 import com.unb.bikex.model.bike.IBikeModel;
+import com.unb.bikex.view.IMapTrackView;
 
 /**
  * Created by Charles on 8/16/2015.
@@ -53,7 +53,7 @@ public class MapTrackPresenter implements IBikeListener {
     public void setSuccessBluetoothConnection(String deviceName){
         iMapTrackView.hideBluetoothConnectionProgressDialog();
         iMapTrackView.showSuccessBluetoothConnection(deviceName);
-        iMapTrackView.startChronometer();
+        iMapTrackView.startTrack();
         iBikeModel.readForever();
     }
 

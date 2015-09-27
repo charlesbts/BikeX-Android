@@ -37,6 +37,11 @@ public class UserPreferencesModel implements IUserPreferencesModel{
     }
 
     @Override
+    public int getWheelSize(){
+        return userSharedPreferences.retrieveWheelSize();
+    }
+
+    @Override
     public void save(){
         userSharedPreferences.save(wheelSize, bluetoothMacAddress);
     }

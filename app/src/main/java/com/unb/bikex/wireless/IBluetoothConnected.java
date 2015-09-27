@@ -2,8 +2,6 @@ package com.unb.bikex.wireless;
 
 import android.bluetooth.BluetoothSocket;
 
-import com.unb.bikex.threadutils.ICallbackThread;
-
 /**
  * Created by Charles on 8/3/2015.
  */
