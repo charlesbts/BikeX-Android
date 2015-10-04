@@ -26,7 +26,6 @@ import javax.inject.Inject;
 public class SensorFragment extends BaseFragment implements IMapTrackView, View.OnLongClickListener{
 
     @Inject MapTrackPresenter mapTrackPresenter;
-
     private Button startTrackButton;
     private TextView speedTextView;
     private TextView cadenceTextView;
