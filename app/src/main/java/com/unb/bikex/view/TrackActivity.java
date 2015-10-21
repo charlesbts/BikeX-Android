@@ -1,10 +1,8 @@
 package com.unb.bikex.view;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.unb.bikex.BaseActivity;
@@ -17,7 +15,7 @@ import java.util.List;
  * Created by Charles on 9/22/2015.
  */
 public class TrackActivity extends BaseActivity {
-    MapTrackModule mapTrackModule;
+    SensorModule sensorModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,8 @@ public class TrackActivity extends BaseActivity {
 
     @Override
     protected List<Object> getModules() {
-        mapTrackModule = new MapTrackModule(null);
-        return Arrays.<Object>asList(mapTrackModule);
+        sensorModule = new SensorModule(null);
+        return Arrays.<Object>asList(sensorModule);
     }
 
     @Override

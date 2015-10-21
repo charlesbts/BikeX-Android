@@ -5,10 +5,13 @@ import android.support.v4.app.Fragment;
 
 import com.unb.bikex.BaseActivity;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Charles on 9/23/2015.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment{
 
     public void onActivityCreated(Bundle savedInstance){
         super.onActivityCreated(savedInstance);
@@ -17,4 +20,5 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public abstract void initPresenterView();
+
 }

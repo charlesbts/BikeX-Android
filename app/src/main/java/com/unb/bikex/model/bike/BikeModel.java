@@ -37,7 +37,6 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     private IBluetoothConnected iBluetoothConnected;
     private UserSharedPreferences userSharedPreferences;
     private IBikeListener iBikeListener;
-    private int byte1, byte2, byte3;
     private float speed = 0, cadence = 0, distance = 0;
 
     @Inject
@@ -106,20 +105,23 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                int byte1 = 0, byte2, byte3;
                 while (byte1 != ID_SPEED_SENSOR && byte1 != ID_CADENCE_SENSOR) { /* Synchronize */
                     byte1 = iBluetoothConnected.readByte();
                 }
                 while(isDoneFlag){
                     byte2 = iBluetoothConnected.readByte();
+                    Log.d("ByteMSB", Integer.toString(byte2));
                     byte3 = iBluetoothConnected.readByte();
-                    updateModel();
+                    Log.d("ByteLSB", Integer.toString(byte3));
+                    updateModel(byte1, byte2, byte3);
                     byte1 = iBluetoothConnected.readByte();
                 }
             }
         }).start();
     }
 
-    private void updateModel(){
+    private void updateModel(int byte1, int byte2, int byte3){
         int packet;
         packet = handleInfo(byte2, byte3);
         if (byte1 == ID_SPEED_SENSOR){

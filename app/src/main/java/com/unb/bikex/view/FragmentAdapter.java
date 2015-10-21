@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
-import com.unb.bikex.PageFragment2;
 import com.unb.bikex.R;
 
 /**
@@ -34,7 +33,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
             case 0:
                 return new SensorFragment();
             case 1:
-                return new PageFragment2();
+                return new MapTrackFragment();
             default:
                 return null;
         }

@@ -30,6 +30,21 @@ public class BluetoothDeviceAdapter extends BaseAdapter {
         this.bluetoothDeviceList = bluetoothDeviceList;
     }
 
+    public void setDefaultMacAddress(String macAddress){
+        setSelectedPosition(macAddress);
+    }
+
+    private void setSelectedPosition(String macAddress){
+        for(int i = 0; i < bluetoothDeviceList.size(); i++){
+            String bluetoothDevice = bluetoothDeviceList.get(i);
+            int macAddressIndex = bluetoothDevice.indexOf('\n');
+            if(bluetoothDevice.substring(macAddressIndex + 1).equals(macAddress)){
+                selectedPosition = i;
+                bluetoothMacAddress = macAddress;
+            }
+        }
+    }
+
     public String getBluetoothMacAddress(){
         return bluetoothMacAddress;
     }

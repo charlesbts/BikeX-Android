@@ -20,8 +20,10 @@ public class UserPreferencesPresenter {
     public void onResume(){
         try {
             int wheelSize;
+            String bluetoothMacAddress;
             List<String> device = iUserPreferencesModel.getBluetoothDeviceList();
-            iUserPreferencesView.setItemsBluetoothDeviceListView(device);
+            bluetoothMacAddress = iUserPreferencesModel.getBluetoothMacAddress();
+            iUserPreferencesView.setItemsBluetoothDeviceListView(device, bluetoothMacAddress);
             wheelSize = iUserPreferencesModel.getWheelSize();
             if(wheelSize != 0) {
                 iUserPreferencesView.setWheelSizeEditText(Integer.toString(wheelSize));

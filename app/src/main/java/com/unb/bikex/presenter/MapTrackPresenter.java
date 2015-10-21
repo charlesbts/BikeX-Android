@@ -1,79 +1,31 @@
 package com.unb.bikex.presenter;
 
-import com.unb.bikex.model.bike.IBikeModel;
+import com.unb.bikex.model.DataLocation;
 import com.unb.bikex.view.IMapTrackView;
 
-/**
- * Created by Charles on 8/16/2015.
- */
-public class MapTrackPresenter implements IBikeListener {
-    IMapTrackView iMapTrackView;
-    IBikeModel iBikeModel;
+import java.util.ArrayList;
+import java.util.List;
 
-    public MapTrackPresenter(IMapTrackView iMapTrackView, IBikeModel iBikeModel){
+/**
+ * Created by Charles on 10/20/2015.
+ */
+public class MapTrackPresenter {
+    IMapTrackView iMapTrackView;
+
+    public MapTrackPresenter(IMapTrackView iMapTrackView){
         this.iMapTrackView = iMapTrackView;
-        this.iBikeModel = iBikeModel;
     }
 
     public void onResume(){
-        try {
-            iBikeModel.prepareUserDependency();
-            String bluetoothEnable = iBikeModel.getBluetoothEnable();
-            if (bluetoothEnable != null) {
-                iMapTrackView.requestBluetoothEnable(bluetoothEnable);
-            }
-            else {
-                getBluetoothConnection();
-            }
-        }
-        catch (NullPointerException sharedPreferences){
-            iMapTrackView.startUserPreferencesActivity();
-        }
-
+        List<DataLocation> locationData = new ArrayList<>();
+        DataLocation locationData1 = new DataLocation(-15.801309, -47.855670);
+        DataLocation locationData2 = new DataLocation(-15.800333, -47.858748);
+        DataLocation locationData3 = new DataLocation(-15.799386, -47.861690);
+        DataLocation locationData4 = new DataLocation(-15.796851, -47.865767);
+        locationData.add(0, locationData1);
+        locationData.add(1, locationData2);
+        locationData.add(2, locationData3);
+        locationData.add(3, locationData4);
+        iMapTrackView.initMarkersMap(locationData);
     }
-
-    public void getBluetoothConnection(){
-        iMapTrackView.showBluetoothConnectionProgressDialog();
-        iBikeModel.setPresenterListener(this);
-        iBikeModel.getBluetoothConnection();
-    }
-
-    public void getBluetoothDisconnection(){
-        iBikeModel.getBluetoothDisconnection();
-    }
-
-
-    @Override
-    public void setErrorBluetoothConnection(){
-        iMapTrackView.hideBluetoothConnectionProgressDialog();
-        iMapTrackView.showErrorBluetoothConnection();
-    }
-
-    @Override
-    public void setSuccessBluetoothConnection(String deviceName){
-        iMapTrackView.hideBluetoothConnectionProgressDialog();
-        iMapTrackView.showSuccessBluetoothConnection(deviceName);
-        iMapTrackView.startTrack();
-        iBikeModel.readForever();
-    }
-
-    @Override
-    public void refreshSpeedView(float speed){
-        iMapTrackView.refreshSpeed(String.format("%.1f", speed));
-    }
-
-    @Override
-    public void refreshCadenceView(float cadence){
-        iMapTrackView.refreshCadence(String.format("%.1f", cadence));
-    }
-
-    @Override
-    public void refreshDistanceView(float distance){
-        iMapTrackView.refreshDistance(String.format("%.1f", distance));
-    }
-
-    public void onDestroy(){
-        iMapTrackView.finishWithShowErrorBluetoothEnable();
-    }
-
 }

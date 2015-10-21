@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unb.bikex.R;
-import com.unb.bikex.presenter.MapTrackPresenter;
+import com.unb.bikex.presenter.SensorPresenter;
 import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
 
 import javax.inject.Inject;
@@ -23,9 +23,10 @@ import javax.inject.Inject;
 /**
  * Created by Charles on 9/22/2015.
  */
-public class SensorFragment extends BaseFragment implements IMapTrackView, View.OnLongClickListener{
+public class SensorFragment extends BaseFragment implements ISensorView, View.OnLongClickListener{
 
-    @Inject MapTrackPresenter mapTrackPresenter;
+    @Inject
+    SensorPresenter sensorPresenter;
     private Button startTrackButton;
     private TextView speedTextView;
     private TextView cadenceTextView;
@@ -37,7 +38,7 @@ public class SensorFragment extends BaseFragment implements IMapTrackView, View.
 
     @Override
     public void initPresenterView(){
-        ((TrackActivity) getActivity()).mapTrackModule.setiMapTrackView(this);
+        ((TrackActivity) getActivity()).sensorModule.setiSensorView(this);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class SensorFragment extends BaseFragment implements IMapTrackView, View.
     @Override
     public void onDestroyView(){
         super.onDestroyView();
-        mapTrackPresenter.getBluetoothDisconnection();
+        sensorPresenter.getBluetoothDisconnection();
         Log.d("SensorFragment", "onDestroyView");
     }
 
@@ -73,10 +74,10 @@ public class SensorFragment extends BaseFragment implements IMapTrackView, View.
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 42 && resultCode == AppCompatActivity.RESULT_OK){
-            mapTrackPresenter.getBluetoothConnection();
+            sensorPresenter.getBluetoothConnection();
         }
         else if(requestCode == 42 && resultCode == AppCompatActivity.RESULT_CANCELED){
-            mapTrackPresenter.onDestroy();
+            sensorPresenter.onDestroy();
         }
 
     }
@@ -148,10 +149,10 @@ public class SensorFragment extends BaseFragment implements IMapTrackView, View.
     public boolean onLongClick(View view){
         if(!isTrackOnFlag) {
             chronometer.setBase(SystemClock.elapsedRealtime());
-            mapTrackPresenter.onResume();
+            sensorPresenter.onResume();
         }
         else{
-            mapTrackPresenter.getBluetoothDisconnection();
+            sensorPresenter.getBluetoothDisconnection();
             chronometer.stop();
             isTrackOnFlag = false;
             startTrackButton.setText(R.string.start_track_button_name);

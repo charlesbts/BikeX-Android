@@ -57,8 +57,9 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
     }
 
     @Override
-    public void setItemsBluetoothDeviceListView(List<String> items){
+    public void setItemsBluetoothDeviceListView(List<String> items, String defaultMacAddress){
         bluetoothDeviceAdapter.setBluetoothDeviceList(items);
+        bluetoothDeviceAdapter.setDefaultMacAddress(defaultMacAddress);
         bluetoothDeviceListView.setAdapter(bluetoothDeviceAdapter);
     }
 
