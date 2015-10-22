@@ -1,9 +1,10 @@
 package com.unb.bikex.presenter;
 
-import com.unb.bikex.model.DataLocation;
-import com.unb.bikex.view.IMapTrackView;
 
-import java.util.ArrayList;
+import com.unb.bikex.model.DataLocation;
+import com.unb.bikex.model.map.IMapModel;
+import com.unb.bikex.view.track.IMapTrackView;
+
 import java.util.List;
 
 /**
@@ -11,21 +12,18 @@ import java.util.List;
  */
 public class MapTrackPresenter {
     IMapTrackView iMapTrackView;
+    IMapModel iMapModel;
 
-    public MapTrackPresenter(IMapTrackView iMapTrackView){
+    public MapTrackPresenter(IMapTrackView iMapTrackView, IMapModel iMapModel){
         this.iMapTrackView = iMapTrackView;
+        this.iMapModel = iMapModel;
     }
 
     public void onResume(){
-        List<DataLocation> locationData = new ArrayList<>();
-        DataLocation locationData1 = new DataLocation(-15.801309, -47.855670);
-        DataLocation locationData2 = new DataLocation(-15.800333, -47.858748);
-        DataLocation locationData3 = new DataLocation(-15.799386, -47.861690);
-        DataLocation locationData4 = new DataLocation(-15.796851, -47.865767);
-        locationData.add(0, locationData1);
-        locationData.add(1, locationData2);
-        locationData.add(2, locationData3);
-        locationData.add(3, locationData4);
-        iMapTrackView.initMarkersMap(locationData);
+        List<DataLocation> dataLocationList = iMapModel.getDataLocationList();
+        iMapTrackView.moveCamera(dataLocationList.get(0).getLatitude(), dataLocationList.get(0).getLongitude(), 16);
+        for(DataLocation markers : dataLocationList){
+            iMapTrackView.drawMarker(markers.getLatitude(), markers.getLongitude());
+        }
     }
 }

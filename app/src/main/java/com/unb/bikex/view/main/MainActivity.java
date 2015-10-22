@@ -8,11 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.unb.bikex.BaseActivity;
+import com.unb.bikex.view.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.adapter.TrackAdapter;
 import com.unb.bikex.presenter.MainPresenter;
-import com.unb.bikex.view.TrackActivity;
+import com.unb.bikex.view.track.TrackActivity;
 import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
 
 import java.util.Arrays;

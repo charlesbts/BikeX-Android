@@ -4,6 +4,8 @@ import com.unb.bikex.model.bike.BikeModel;
 import com.unb.bikex.model.bike.IBikeModel;
 import com.unb.bikex.model.main.IMainModel;
 import com.unb.bikex.model.main.MainModel;
+import com.unb.bikex.model.map.IMapModel;
+import com.unb.bikex.model.map.MapModel;
 import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
 import com.unb.bikex.model.userpreferences.UserPreferencesModel;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;
@@ -41,5 +43,10 @@ public class ModelModule {
     public IUserPreferencesModel provideIUserPreferencesModel(UserSharedPreferences userSharedPreferences,
                                                               IBluetoothSetup iBluetoothSetup){
         return  new UserPreferencesModel(userSharedPreferences, iBluetoothSetup);
+    }
+
+    @Provides
+    public IMapModel provideIMapModel(){
+        return new MapModel();
     }
 }

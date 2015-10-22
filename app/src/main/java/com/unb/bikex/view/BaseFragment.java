@@ -3,11 +3,6 @@ package com.unb.bikex.view;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.unb.bikex.BaseActivity;
-
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by Charles on 9/23/2015.
  */

@@ -49,7 +49,7 @@
 
 
         <activity
-            android:name=".view.TrackActivity"
+            android:name=".view.track.TrackActivity"
             android:label="Track" >
         </activity>
 

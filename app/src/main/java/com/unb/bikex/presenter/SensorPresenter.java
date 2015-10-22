@@ -1,7 +1,7 @@
 package com.unb.bikex.presenter;
 
 import com.unb.bikex.model.bike.IBikeModel;
-import com.unb.bikex.view.ISensorView;
+import com.unb.bikex.view.track.ISensorView;
 
 /**
  * Created by Charles on 8/16/2015.

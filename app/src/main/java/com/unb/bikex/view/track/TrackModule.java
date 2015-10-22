@@ -1,12 +1,16 @@
-package com.unb.bikex.view;
-
-import android.util.Log;
+package com.unb.bikex.view.track;
 
 import com.unb.bikex.app.BikeXAppModule;
 import com.unb.bikex.model.bike.BikeModel;
 import com.unb.bikex.model.bike.IBikeModel;
+import com.unb.bikex.model.map.IMapModel;
 import com.unb.bikex.presenter.MapTrackPresenter;
 import com.unb.bikex.presenter.SensorPresenter;
+import com.unb.bikex.view.track.IMapTrackView;
+import com.unb.bikex.view.track.ISensorView;
+import com.unb.bikex.view.track.MapTrackFragment;
+import com.unb.bikex.view.track.SensorFragment;
+import com.unb.bikex.view.track.TrackActivity;
 
 import javax.inject.Singleton;
 
@@ -20,11 +24,11 @@ import dagger.Provides;
         injects = {BikeModel.class, TrackActivity.class, SensorFragment.class, MapTrackFragment.class},
         addsTo = BikeXAppModule.class
 )
-public class SensorModule {
+public class TrackModule {
     ISensorView iSensorView;
     IMapTrackView iMapTrackView;
 
-    public SensorModule(ISensorView iSensorView){
+    public TrackModule(ISensorView iSensorView){
         this.iSensorView = iSensorView;
     }
 
@@ -32,15 +36,13 @@ public class SensorModule {
     @Provides
     @Singleton
     public SensorPresenter provideSensorPresenter(IBikeModel iBikeModel){
-        Log.d("INJECTED", "SENSORPRESENT");
         return new SensorPresenter(iSensorView, iBikeModel);
     }
 
     @Provides
     @Singleton
-    public MapTrackPresenter provideMapTrackPresenter(){
-        Log.d("INJECTED", "MAPPRESENTER");
-        return new MapTrackPresenter(iMapTrackView);
+    public MapTrackPresenter provideMapTrackPresenter(IMapModel iMapModel){
+        return new MapTrackPresenter(iMapTrackView, iMapModel);
     }
 
 

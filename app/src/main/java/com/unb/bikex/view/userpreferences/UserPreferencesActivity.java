@@ -7,7 +7,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.unb.bikex.BaseActivity;
+import com.unb.bikex.view.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.adapter.BluetoothDeviceAdapter;
 import com.unb.bikex.presenter.UserPreferencesPresenter;

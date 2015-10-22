@@ -1,4 +1,4 @@
-package com.unb.bikex.view;
+package com.unb.bikex.view.track;
 
 /**
  * Created by Charles on 8/16/2015.

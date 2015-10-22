@@ -1,4 +1,4 @@
-package com.unb.bikex.view;
+package com.unb.bikex.view.track;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.unb.bikex.R;
 import com.unb.bikex.presenter.SensorPresenter;
+import com.unb.bikex.view.BaseFragment;
 import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
 
 import javax.inject.Inject;
@@ -38,7 +39,7 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
 
     @Override
     public void initPresenterView(){
-        ((TrackActivity) getActivity()).sensorModule.setiSensorView(this);
+        ((TrackActivity) getActivity()).trackModule.setiSensorView(this);
     }
 
     @Override
