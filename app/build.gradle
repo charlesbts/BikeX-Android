@@ -33,7 +33,7 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.0.5-beta'
-    compile 'com.squareup.dagger:dagger:1.2.+'
-    provided 'com.squareup.dagger:dagger-compiler:1.2.+'
+    compile 'com.squareup.dagger:dagger:1.2.2'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
     compile 'com.google.android.gms:play-services-maps:7.5.0'
 }
