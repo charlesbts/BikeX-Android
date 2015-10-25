@@ -8,6 +8,7 @@ import android.util.Log;
 import com.unb.bikex.view.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.adapter.FragmentAdapter;
+import com.unb.bikex.view.main.MainActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +22,8 @@ public class TrackActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("TrackActivity", "onCreate");
         setContentView(R.layout.tabs);
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), this));

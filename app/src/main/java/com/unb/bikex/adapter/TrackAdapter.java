@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.unb.bikex.R;
+import com.unb.bikex.model.main.Track;
 
 import java.util.List;
 
@@ -17,13 +19,13 @@ import java.util.List;
  */
 public class TrackAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
-    private List<String>  trackList;
+    private List<Track> trackList;
 
     public TrackAdapter(Context context){
         this.layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setTrackList(List<String> trackList){
+    public void setTrackList(List<Track> trackList){
         this.trackList = trackList;
     }
 
@@ -43,7 +45,7 @@ public class TrackAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup){
+    public View getView(final int position, View view, ViewGroup viewGroup){
         ViewHolder viewHolder;
 
         if(view == null){
@@ -58,10 +60,12 @@ public class TrackAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        String trackName = trackList.get(position);
+        final String trackName = trackList.get(position).getName();
         viewHolder.trackNameTextView.setText(trackName);
         viewHolder.trackImageView.setImageResource(R.mipmap.track);
         viewHolder.arrowImageView.setImageResource(R.mipmap.arrow);
+
+
         return view;
     }
 

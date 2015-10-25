@@ -40,7 +40,7 @@ public class BluetoothSetupTest {
     }
 
     @Test
-    public void testEnable(){
+    public void enableTest(){
         Mockito.when(bluetoothAdapter.isEnabled()).thenReturn(true);
         assertNull(iBluetoothSetup.enable());
         Mockito.when(bluetoothAdapter.isEnabled()).thenReturn(false);
@@ -48,7 +48,7 @@ public class BluetoothSetupTest {
     }
 
     @Test
-    public void testGetPairedDeviceList(){
+    public void getPairedDeviceListTest(){
         Mockito.when(bluetoothDeviceSet.size()).thenReturn(2);
         Mockito.when(bluetoothDevice1.getName()).thenReturn("Teste");
         Mockito.when(bluetoothDevice1.getAddress()).thenReturn("00:11:22:33:AA:BB");

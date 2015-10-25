@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.unb.bikex.model.main.Track;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,44 +55,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     TRACK_COLUMN_COD + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     TRACK_COLUMN_NAME + " TEXT" +
                 ")";
+        String CREATE_LOCATION_TABLE = "CREATE TABLE " + TABLE_LOCATION +
+                "(" +
+                    LOCATION_COLUMN_COD + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    LOCATION_COLUMN_COD_TRACK_FK + " INTEGER REFERENCES " + TABLE_TRACK + ", " +
+                    LOCATION_COLUMN_LATITUDE + " DOUBLE, " +
+                    LOCATION_COLUMN_LONGITUDE + " DOUBLE" +
+                ")";
 
         db.execSQL(CREATE_TRACK_TABLE);
+        db.execSQL(CREATE_LOCATION_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         if(oldVersion != newVersion){
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRACK);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATION);
             onCreate(db);
         }
     }
 
-    public void insertTrack(String name){
+    public void insertTrack(Track track){
         SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
         ContentValues values = new ContentValues();
-        values.put(TRACK_COLUMN_NAME, name);
+        values.put(TRACK_COLUMN_NAME, track.getName());
         db.insert(TABLE_TRACK, null, values);
         db.setTransactionSuccessful();
         db.endTransaction();
     }
 
-    public List<String> selectAllTracks(){
-        List<String> track = new ArrayList<>();
+    public void insertLocation(long trackCod, double latitude, double longitude){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        ContentValues values = new ContentValues();
+        values.put(LOCATION_COLUMN_COD_TRACK_FK, trackCod);
+        values.put(LOCATION_COLUMN_LATITUDE, latitude);
+        values.put(LOCATION_COLUMN_LONGITUDE, longitude);
+        db.insert(TABLE_LOCATION, null, values);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+    }
+
+    public void deleteAllTracks(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        db.delete(TABLE_TRACK, null, null);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+    }
+
+    public List<Track> selectAllTracks(){
+        List<Track> trackList = new ArrayList<>();
         String TRACK_SELECT_QUERY =
-                String.format("SELECT name FROM %s",
+                String.format("SELECT cod, name FROM %s",
                         TABLE_TRACK);
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(TRACK_SELECT_QUERY, null);
         cursor.moveToFirst();
         do {
+            long trackCod = cursor.getLong(cursor.getColumnIndex(TRACK_COLUMN_COD));
             String trackName = cursor.getString(cursor.getColumnIndex(TRACK_COLUMN_NAME));
-            track.add(trackName);
+            trackList.add(new Track(trackCod, trackName));
         }while(cursor.moveToNext());
 
-        return track;
+        cursor.close();
+        return trackList;
     }
 
 }

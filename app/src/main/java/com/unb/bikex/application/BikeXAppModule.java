@@ -1,5 +1,6 @@
-package com.unb.bikex.app;
+package com.unb.bikex.application;
 
+import com.unb.bikex.database.DatabaseHelper;
 import com.unb.bikex.model.ModelModule;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;
 import com.unb.bikex.wireless.BluetoothModule;
@@ -33,5 +34,11 @@ public class BikeXAppModule {
     @Provides
     public UserSharedPreferences provideUserSharedPreferences(BikeXApp context){
         return new UserSharedPreferences(context);
+    }
+
+    @Provides
+    @Singleton
+    public DatabaseHelper provideDataBaseHelper(BikeXApp context){
+        return new DatabaseHelper(context);
     }
 }

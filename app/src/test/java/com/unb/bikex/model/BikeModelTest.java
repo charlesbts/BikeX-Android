@@ -1,7 +1,8 @@
 package com.unb.bikex.model;
 
-import com.unb.bikex.app.BikeXApp;
+import com.unb.bikex.application.BikeXApp;
 import com.unb.bikex.model.bike.BikeModel;
+import com.unb.bikex.sharedpreferences.UserSharedPreferences;
 import com.unb.bikex.wireless.BluetoothConnected;
 import com.unb.bikex.wireless.BluetoothConnection;
 
@@ -24,11 +25,12 @@ public class BikeModelTest {
     @Mock BluetoothConnected bluetoothConnected;
     @Mock BluetoothConnection bluetoothConnection;
     @Mock BikeXApp context;
+    @Mock UserSharedPreferences userSharedPreferences;
 
     @Before
     public void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
-        bikeModel = new BikeModel(bluetoothConnection, bluetoothConnected, context);
+        bikeModel = new BikeModel(bluetoothConnection, bluetoothConnected, userSharedPreferences);
         assertNotNull(bikeModel);
     }
 

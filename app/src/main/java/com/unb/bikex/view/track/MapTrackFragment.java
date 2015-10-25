@@ -15,16 +15,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.unb.bikex.R;
 import com.unb.bikex.presenter.MapTrackPresenter;
 import com.unb.bikex.view.BaseFragment;
+import com.unb.bikex.view.main.MainActivity;
 
 import javax.inject.Inject;
 
 /**
  * Created by Charles on 9/21/2015.
  */
-public class MapTrackFragment extends BaseFragment implements IMapTrackView {
+public class MapTrackFragment extends BaseFragment implements IMapTrackView, GoogleMap.OnMyLocationChangeListener {
 
     @Inject MapTrackPresenter mapTrackPresenter;
     private GoogleMap map;
+    private long trackCod;
 
 
     @Override
@@ -38,22 +40,26 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView {
         View view = inflater.inflate(R.layout.tab2, container, false);
 
         map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.location_map)).getMap();
-        map.setMyLocationEnabled(true);
-        map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-            @Override
-            public void onMyLocationChange(Location location) {
-                Toast.makeText(getActivity(), Double.toString(location.getLatitude()), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), Double.toString(location.getLongitude()), Toast.LENGTH_SHORT).show();
-            }
-        });
+       // map.setMyLocationEnabled(true);
+        //map.setOnMyLocationChangeListener(this);
 
         return view;
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstance){
+        super.onActivityCreated(savedInstance);
+        Bundle extras = getActivity().getIntent().getExtras();
+        if(extras != null){
+            trackCod = extras.getLong(MainActivity.COD_TRACK);
+            Toast.makeText(getActivity(), Long.toString(trackCod), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
     public void onResume(){
         super.onResume();
-        mapTrackPresenter.onResume();
+        //mapTrackPresenter.onResume();
     }
 
     @Override
@@ -68,6 +74,11 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView {
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         map.addMarker(markerOptions);
+    }
+
+    @Override
+    public void onMyLocationChange(Location location){
+        /* TODO: Chama presenter e move camera */
     }
 
 

@@ -1,4 +1,4 @@
-package com.unb.bikex.app;
+package com.unb.bikex.application;
 
 import android.app.Application;
 

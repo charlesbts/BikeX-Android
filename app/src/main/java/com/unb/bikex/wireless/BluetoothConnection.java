@@ -78,7 +78,7 @@ public class BluetoothConnection extends GenericThread implements IBluetoothConn
             bluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
         }
         else{
-            throw new IOException("Address invalid!");
+            throw new IOException("Invalid address");
         }
     }
     @Override

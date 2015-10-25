@@ -2,7 +2,7 @@ package com.unb.bikex.sharedpreferences;
 
 import android.content.SharedPreferences;
 
-import com.unb.bikex.app.BikeXApp;
+import com.unb.bikex.application.BikeXApp;
 
 /**
  * Created by Charles on 9/13/2015.

@@ -8,17 +8,12 @@ import android.bluetooth.BluetoothSocket;
 public interface IBluetoothConnected {
 
 
-    public void setBluetoothSocket(BluetoothSocket bluetoothSocket);
-
-    /**
-     * Envia um byte para o dispositivo conectado
-     */
-    public void writeByte(byte outByte);
+    void setBluetoothSocket(BluetoothSocket bluetoothSocket);
 
     /**
      * Recebe um byte do dispositivo conectado
      */
 
-    public int readByte();
+    int readByte();
 
 }

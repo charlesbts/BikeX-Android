@@ -7,6 +7,6 @@ import java.util.List;
  */
 public interface IMainModel {
 
-    List<String> getTrackList();
+    List<Track> getTrackList();
 
 }

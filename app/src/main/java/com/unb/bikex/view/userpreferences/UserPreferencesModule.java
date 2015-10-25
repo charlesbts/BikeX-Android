@@ -3,7 +3,7 @@ package com.unb.bikex.view.userpreferences;
 import android.app.Activity;
 
 import com.unb.bikex.adapter.BluetoothDeviceAdapter;
-import com.unb.bikex.app.BikeXAppModule;
+import com.unb.bikex.application.BikeXAppModule;
 import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
 import com.unb.bikex.presenter.UserPreferencesPresenter;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;

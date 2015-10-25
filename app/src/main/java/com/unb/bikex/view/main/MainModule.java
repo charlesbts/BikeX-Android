@@ -3,7 +3,7 @@ package com.unb.bikex.view.main;
 import android.app.Activity;
 
 import com.unb.bikex.adapter.TrackAdapter;
-import com.unb.bikex.app.BikeXAppModule;
+import com.unb.bikex.application.BikeXAppModule;
 import com.unb.bikex.model.main.IMainModel;
 import com.unb.bikex.presenter.MainPresenter;
 

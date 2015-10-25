@@ -1,16 +1,11 @@
 package com.unb.bikex.view.track;
 
-import com.unb.bikex.app.BikeXAppModule;
+import com.unb.bikex.application.BikeXAppModule;
 import com.unb.bikex.model.bike.BikeModel;
 import com.unb.bikex.model.bike.IBikeModel;
 import com.unb.bikex.model.map.IMapModel;
 import com.unb.bikex.presenter.MapTrackPresenter;
 import com.unb.bikex.presenter.SensorPresenter;
-import com.unb.bikex.view.track.IMapTrackView;
-import com.unb.bikex.view.track.ISensorView;
-import com.unb.bikex.view.track.MapTrackFragment;
-import com.unb.bikex.view.track.SensorFragment;
-import com.unb.bikex.view.track.TrackActivity;
 
 import javax.inject.Singleton;
 

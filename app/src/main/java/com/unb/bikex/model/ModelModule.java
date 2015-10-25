@@ -1,6 +1,6 @@
 package com.unb.bikex.model;
 
-import com.unb.bikex.app.BikeXApp;
+import com.unb.bikex.database.DatabaseHelper;
 import com.unb.bikex.model.bike.BikeModel;
 import com.unb.bikex.model.bike.IBikeModel;
 import com.unb.bikex.model.main.IMainModel;
@@ -29,8 +29,8 @@ import dagger.Provides;
 public class ModelModule {
 
     @Provides
-    public IMainModel provideIMainModel(BikeXApp context){
-        return new MainModel(context);
+    public IMainModel provideIMainModel(DatabaseHelper databaseHelper){
+        return new MainModel(databaseHelper);
     }
 
     @Provides

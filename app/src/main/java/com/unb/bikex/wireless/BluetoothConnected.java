@@ -12,7 +12,6 @@ import java.io.OutputStream;
  */
 public class BluetoothConnected implements IBluetoothConnected {
     private BluetoothSocket bluetoothSocket;
-    private OutputStream outputStream;
     private InputStream inputStream;
 
     @Override
@@ -21,23 +20,11 @@ public class BluetoothConnected implements IBluetoothConnected {
     }
 
     @Override
-    public void writeByte(byte outByte){
-        try{
-            outputStream = bluetoothSocket.getOutputStream();
-            outputStream.write(outByte);
-        }
-        catch (IOException writeException){
-            Log.d("BluetoothConnected.w", writeException.getMessage());
-        }
-    }
-
-    @Override
     public int readByte(){
         int inByte = 0;
         try{
             inputStream = bluetoothSocket.getInputStream();
             inByte = inputStream.read();
-            Log.d("NewByte", String.valueOf(inByte));
         }
         catch (IOException readException){
             Log.d("BluetoothConnected.r", readException.getMessage());
