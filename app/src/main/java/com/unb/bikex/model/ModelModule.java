@@ -7,6 +7,8 @@ import com.unb.bikex.model.main.IMainModel;
 import com.unb.bikex.model.main.MainModel;
 import com.unb.bikex.model.map.IMapModel;
 import com.unb.bikex.model.map.MapModel;
+import com.unb.bikex.model.newtrack.INewTrackModel;
+import com.unb.bikex.model.newtrack.NewTrackModel;
 import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
 import com.unb.bikex.model.userpreferences.UserPreferencesModel;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;
@@ -49,5 +51,10 @@ public class ModelModule {
     @Provides
     public IMapModel provideIMapModel(){
         return new MapModel();
+    }
+
+    @Provides
+    public INewTrackModel provideINewTrackModel(){
+        return new NewTrackModel();
     }
 }

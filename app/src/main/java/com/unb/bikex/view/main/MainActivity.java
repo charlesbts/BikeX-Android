@@ -15,6 +15,7 @@ import com.unb.bikex.view.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.adapter.TrackAdapter;
 import com.unb.bikex.presenter.MainPresenter;
+import com.unb.bikex.view.newtrack.NewTrackActivity;
 import com.unb.bikex.view.track.TrackActivity;
 import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
 
@@ -51,7 +52,8 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
     }
 
     public void invokeMapTrack(View view){
-        Intent intent = new Intent(MainActivity.this, TrackActivity.class);
+        //Intent intent = new Intent(MainActivity.this, TrackActivity.class);
+        Intent intent = new Intent(MainActivity.this, NewTrackActivity.class);
         startActivity(intent);
     }
 

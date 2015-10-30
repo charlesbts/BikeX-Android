@@ -53,6 +53,11 @@
             android:label="Track" >
         </activity>
 
+        <activity
+            android:name=".view.newtrack.NewTrackActivity"
+            android:label="New Track" >
+        </activity>
+
         <uses-library android:name="com.google.android.maps"/>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

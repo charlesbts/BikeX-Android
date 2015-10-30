@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -26,6 +28,7 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
 
     @Inject MapTrackPresenter mapTrackPresenter;
     private GoogleMap map;
+    private GoogleApiAvailability googleApiAvailability;
     private long trackCod;
 
 
@@ -40,8 +43,7 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
         View view = inflater.inflate(R.layout.tab2, container, false);
 
         map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.location_map)).getMap();
-       // map.setMyLocationEnabled(true);
-        //map.setOnMyLocationChangeListener(this);
+        googleApiAvailability = GoogleApiAvailability.getInstance();
 
         return view;
     }
@@ -59,7 +61,10 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
     @Override
     public void onResume(){
         super.onResume();
-        //mapTrackPresenter.onResume();
+        if(googleApiAvailability.isGooglePlayServicesAvailable(getActivity()) == ConnectionResult.SUCCESS) {
+            setupMap();
+            mapTrackPresenter.onResume();
+        }
     }
 
     @Override
@@ -74,6 +79,11 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         map.addMarker(markerOptions);
+    }
+
+    private void setupMap(){
+        map.setMyLocationEnabled(true);
+        map.setOnMyLocationChangeListener(this);
     }
 
     @Override
