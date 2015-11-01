@@ -19,11 +19,13 @@ public class MapTrackPresenter {
         this.iMapModel = iMapModel;
     }
 
-    public void onResume(){
-        List<DataLocation> dataLocationList = iMapModel.getDataLocationList();
+    public void onResume(long extras){
+        List<DataLocation> dataLocationList = iMapModel.getDataLocationList(extras);
         iMapTrackView.moveCamera(dataLocationList.get(0).getLatitude(), dataLocationList.get(0).getLongitude(), 16);
-        for(DataLocation markers : dataLocationList){
-            iMapTrackView.drawMarker(markers.getLatitude(), markers.getLongitude());
+        iMapTrackView.drawGreenMarker(dataLocationList.get(0).getLatitude(), dataLocationList.get(0).getLongitude());
+
+        for(int i = 1; i < dataLocationList.size(); i++){
+            iMapTrackView.drawRedMarker(dataLocationList.get(i).getLatitude(), dataLocationList.get(i).getLongitude());
         }
     }
 }

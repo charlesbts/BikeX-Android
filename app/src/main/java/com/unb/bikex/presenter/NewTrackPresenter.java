@@ -30,4 +30,9 @@ public class NewTrackPresenter {
             iNewTrackView.showRemoveMarkerError(noMarker.getMessage());
         }
     }
+
+    public void saveNewTrack(String trackName){
+        iNewTrackModel.persistTrack(trackName);
+        iNewTrackView.showSaveSuccess();
+    }
 }

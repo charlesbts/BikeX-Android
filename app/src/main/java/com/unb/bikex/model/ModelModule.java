@@ -49,12 +49,12 @@ public class ModelModule {
     }
 
     @Provides
-    public IMapModel provideIMapModel(){
-        return new MapModel();
+    public IMapModel provideIMapModel(DatabaseHelper databaseHelper){
+        return new MapModel(databaseHelper);
     }
 
     @Provides
-    public INewTrackModel provideINewTrackModel(){
-        return new NewTrackModel();
+    public INewTrackModel provideINewTrackModel(DatabaseHelper databaseHelper){
+        return new NewTrackModel(databaseHelper);
     }
 }

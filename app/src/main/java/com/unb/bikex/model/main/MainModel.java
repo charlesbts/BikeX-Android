@@ -16,13 +16,6 @@ public class MainModel implements IMainModel {
     @Override
     public List<Track> getTrackList(){
         List<Track> trackList;
-
-        databaseHelper.deleteAllTracks();
-
-        databaseHelper.insertTrack(new Track(0, "Tcu"));
-        databaseHelper.insertTrack(new Track (0, "UnB"));
-        databaseHelper.insertTrack(new Track (0, "Brasília"));
-
         trackList = databaseHelper.selectAllTracks();
         return trackList;
     }

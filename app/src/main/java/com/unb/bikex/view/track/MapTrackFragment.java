@@ -12,6 +12,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.unb.bikex.R;
@@ -54,7 +55,6 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
         Bundle extras = getActivity().getIntent().getExtras();
         if(extras != null){
             trackCod = extras.getLong(MainActivity.COD_TRACK);
-            Toast.makeText(getActivity(), Long.toString(trackCod), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -63,7 +63,7 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
         super.onResume();
         if(googleApiAvailability.isGooglePlayServicesAvailable(getActivity()) == ConnectionResult.SUCCESS) {
             setupMap();
-            mapTrackPresenter.onResume();
+            mapTrackPresenter.onResume(trackCod);
         }
     }
 
@@ -74,10 +74,19 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
     }
 
     @Override
-    public void drawMarker(double latitude, double longitude){
+    public void drawRedMarker(double latitude, double longitude){
         LatLng latLng = new LatLng(latitude, longitude);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
+        map.addMarker(markerOptions);
+    }
+
+    @Override
+    public void drawGreenMarker(double latitude, double longitude){
+        LatLng latLng = new LatLng(latitude, longitude);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         map.addMarker(markerOptions);
     }
 

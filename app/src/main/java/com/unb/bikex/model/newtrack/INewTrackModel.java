@@ -6,4 +6,5 @@ package com.unb.bikex.model.newtrack;
 public interface INewTrackModel {
     void addDataLocation(double latitude, double longitude);
     void removeDataLocation() throws IndexOutOfBoundsException;
+    void persistTrack(String trackName);
 }

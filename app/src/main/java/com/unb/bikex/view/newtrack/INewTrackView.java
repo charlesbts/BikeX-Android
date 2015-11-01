@@ -8,4 +8,5 @@ public interface INewTrackView{
     void drawMarker(double latitude, double longitude);
     void removeMarker();
     void showRemoveMarkerError(String message);
+    void showSaveSuccess();
 }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.unb.bikex.model.DataLocation;
 import com.unb.bikex.model.main.Track;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /* Location table columns*/
     private static final String LOCATION_COLUMN_COD = "cod";
     private static final String LOCATION_COLUMN_COD_TRACK_FK = "cod_track";
+    private static final String LOCATION_COLUMN_SEQUENCE = "sequence";
     private static final String LOCATION_COLUMN_LATITUDE = "latitude";
     private static final String LOCATION_COLUMN_LONGITUDE = "longitude";
 
@@ -59,6 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "(" +
                     LOCATION_COLUMN_COD + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     LOCATION_COLUMN_COD_TRACK_FK + " INTEGER REFERENCES " + TABLE_TRACK + ", " +
+                    LOCATION_COLUMN_SEQUENCE + " INTEGER, " +
                     LOCATION_COLUMN_LATITUDE + " DOUBLE, " +
                     LOCATION_COLUMN_LONGITUDE + " DOUBLE" +
                 ")";
@@ -76,22 +79,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insertTrack(Track track){
+    public long insertTrack(Track track){
+        long codTrack;
         SQLiteDatabase db = getWritableDatabase();
 
         db.beginTransaction();
         ContentValues values = new ContentValues();
         values.put(TRACK_COLUMN_NAME, track.getName());
-        db.insert(TABLE_TRACK, null, values);
+        codTrack = db.insert(TABLE_TRACK, null, values);
         db.setTransactionSuccessful();
         db.endTransaction();
+
+        return codTrack;
     }
 
-    public void insertLocation(long trackCod, double latitude, double longitude){
+    public void insertLocation(long trackCod, int sequence, double latitude, double longitude){
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
         ContentValues values = new ContentValues();
         values.put(LOCATION_COLUMN_COD_TRACK_FK, trackCod);
+        values.put(LOCATION_COLUMN_SEQUENCE, sequence);
         values.put(LOCATION_COLUMN_LATITUDE, latitude);
         values.put(LOCATION_COLUMN_LONGITUDE, longitude);
         db.insert(TABLE_LOCATION, null, values);
@@ -115,15 +122,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(TRACK_SELECT_QUERY, null);
-        cursor.moveToFirst();
-        do {
-            long trackCod = cursor.getLong(cursor.getColumnIndex(TRACK_COLUMN_COD));
-            String trackName = cursor.getString(cursor.getColumnIndex(TRACK_COLUMN_NAME));
-            trackList.add(new Track(trackCod, trackName));
-        }while(cursor.moveToNext());
+        if(cursor.moveToFirst()) {
+            do {
+                long trackCod = cursor.getLong(cursor.getColumnIndex(TRACK_COLUMN_COD));
+                String trackName = cursor.getString(cursor.getColumnIndex(TRACK_COLUMN_NAME));
+                trackList.add(new Track(trackCod, trackName));
+            }while(cursor.moveToNext());
+        }
 
         cursor.close();
         return trackList;
+    }
+
+    public List<DataLocation> selectAllDataLocationsFromTrack(long trackCod){
+        List<DataLocation> dataLocationList = new ArrayList<>();
+        String DATA_LOCATION_SELECT_QUERY =
+                String.format("SELECT latitude, longitude FROM %s WHERE %s = %s ORDER BY sequence",
+                        TABLE_LOCATION, LOCATION_COLUMN_COD_TRACK_FK, Long.toString(trackCod));
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(DATA_LOCATION_SELECT_QUERY, null);
+        if(cursor.moveToFirst()){
+            do{
+                double latitude = cursor.getDouble(cursor.getColumnIndex(LOCATION_COLUMN_LATITUDE));
+                double longitude = cursor.getDouble(cursor.getColumnIndex(LOCATION_COLUMN_LONGITUDE));
+                dataLocationList.add(new DataLocation(latitude, longitude));
+            }while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        return dataLocationList;
     }
 
 }

@@ -52,7 +52,6 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
     }
 
     public void invokeMapTrack(View view){
-        //Intent intent = new Intent(MainActivity.this, TrackActivity.class);
         Intent intent = new Intent(MainActivity.this, NewTrackActivity.class);
         startActivity(intent);
     }

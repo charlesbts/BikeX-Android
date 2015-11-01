@@ -6,5 +6,6 @@ package com.unb.bikex.view.track;
  */
 public interface IMapTrackView {
     void moveCamera(double latitude, double longitude, float zoom);
-    void drawMarker(double latitude, double longitude);
+    void drawRedMarker(double latitude, double longitude);
+    void drawGreenMarker(double latitude, double longitude);
 }

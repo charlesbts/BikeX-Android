@@ -28,11 +28,15 @@ import javax.inject.Inject;
 /**
  * Created by Charles on 10/20/2015.
  */
-public class NewTrackActivity extends BaseActivity implements INewTrackView, OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
+public class NewTrackActivity extends BaseActivity implements INewTrackView, OnMapReadyCallback, GoogleMap.OnMapClickListener,
+        GoogleMap.OnMapLongClickListener, DialogInterface.OnClickListener  {
+
     @Inject NewTrackPresenter newTrackPresenter;
     private SupportMapFragment map;
     private GoogleMap googleMap;
     private GoogleApiAvailability googleApiAvailability;
+
+    EditText trackNameEditText;
 
     private List<Marker> markerList = new ArrayList<>();
     int position = 0;
@@ -68,16 +72,11 @@ public class NewTrackActivity extends BaseActivity implements INewTrackView, OnM
 
     public void saveTrack(View view){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Track Name");
-        alert.setMessage("Give a name to your track");
-        final EditText input = new EditText(this);
-        alert.setView(input);
-
-        alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                Toast.makeText(NewTrackActivity.this, input.getText().toString(), Toast.LENGTH_LONG).show();
-            }
-        });
+        alert.setTitle(R.string.track_name);
+        alert.setMessage(R.string.track_name_instruction);
+        trackNameEditText = new EditText(this);
+        alert.setView(trackNameEditText);
+        alert.setPositiveButton(R.string.track_name_dialog_button, this);
         alert.show();
     }
 
@@ -89,6 +88,11 @@ public class NewTrackActivity extends BaseActivity implements INewTrackView, OnM
     @Override
     public void onMapLongClick(LatLng latLng){
         newTrackPresenter.onMapLongClick();
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int whichButton){
+        newTrackPresenter.saveNewTrack(trackNameEditText.getText().toString());
     }
 
     @Override
@@ -105,6 +109,12 @@ public class NewTrackActivity extends BaseActivity implements INewTrackView, OnM
     @Override
     public void showRemoveMarkerError(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showSaveSuccess(){
+        Toast.makeText(this, R.string.new_track_success_message, Toast.LENGTH_LONG).show();
+        finish();
     }
 
     @Override
