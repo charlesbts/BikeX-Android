@@ -8,5 +8,5 @@ import java.util.List;
 public interface IMainModel {
 
     List<Track> getTrackList();
-
+    void deleteTrack(long cod) throws Exception;
 }

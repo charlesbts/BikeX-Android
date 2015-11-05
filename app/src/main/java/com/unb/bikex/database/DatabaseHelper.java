@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import com.unb.bikex.model.DataLocation;
 import com.unb.bikex.model.main.Track;
@@ -93,6 +95,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return codTrack;
     }
 
+    public boolean trackNameExists(String trackName){
+        String TRACK_SELECT_QUERY =
+                String.format("SELECT %s FROM %s WHERE %s = ?",
+                        TRACK_COLUMN_COD, TABLE_TRACK, TRACK_COLUMN_NAME);
+
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteStatement statement = db.compileStatement(TRACK_SELECT_QUERY);
+        statement.bindString(1, trackName);
+        try {
+            statement.simpleQueryForLong();
+            return true;
+        }
+        catch (SQLiteDoneException trackNameNotExists){
+            return false;
+        }
+    }
+
     public void insertLocation(long trackCod, int sequence, double latitude, double longitude){
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
@@ -106,12 +125,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.endTransaction();
     }
 
-    public void deleteAllTracks(){
+    public int deleteTrack(long cod){
+        int numRowsDeleted;
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
-        db.delete(TABLE_TRACK, null, null);
+        numRowsDeleted = db.delete(TABLE_TRACK, TRACK_COLUMN_COD + " =?", new String[] {Long.toString(cod)});
         db.setTransactionSuccessful();
         db.endTransaction();
+        return numRowsDeleted;
     }
 
     public List<Track> selectAllTracks(){

@@ -5,10 +5,16 @@
     <string name="start_track_button_name">Start Track</string>
     <string name="stop_track_button_name">Stop Track</string>
     <string name="save_track_button_name">Save Track</string>
+
+    <string name="menu_main_list_view_delete">Delete...</string>
+
     <string name="track_name">Track Name</string>
     <string name="track_name_instruction">Give a name to your track</string>
     <string name="track_name_dialog_button">Save</string>
     <string name="new_track_success_message">Track saved</string>
+    <string name="track_delete_error">Error deleting track</string>
+    <string name="new_track_error_null_message">This field cannot be empty</string>
+    <string name="new_track_error_exists_message">This name already exists</string>
 
     <string name="save_user_preferences_button_name">Save Preferences</string>
 

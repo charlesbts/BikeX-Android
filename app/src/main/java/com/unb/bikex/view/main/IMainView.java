@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface IMainView {
     void setItemsTrackListView(List<Track> items);
+    void refreshListView(long cod);
+    void showErrorDeleteTrack();
 }

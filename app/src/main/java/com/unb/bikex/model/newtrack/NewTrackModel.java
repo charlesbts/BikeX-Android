@@ -39,14 +39,19 @@ public class NewTrackModel implements INewTrackModel {
     }
 
     @Override
-    public void persistTrack(String trackName){
+    public void persistTrack(String trackName) throws IllegalArgumentException{
         Track track = new Track(0, trackName);
         long trackCod;
 
-        trackCod = databaseHelper.insertTrack(track);
-        for(int position = 0; position < dataLocationList.size(); position++){
-            databaseHelper.insertLocation(trackCod, position,
-                    dataLocationList.get(position).getLatitude(), dataLocationList.get(position).getLongitude());
+        if(!databaseHelper.trackNameExists(trackName)) {
+            trackCod = databaseHelper.insertTrack(track);
+            for (int position = 0; position < dataLocationList.size(); position++) {
+                databaseHelper.insertLocation(trackCod, position,
+                        dataLocationList.get(position).getLatitude(), dataLocationList.get(position).getLongitude());
+            }
+        }
+        else{
+            throw new IllegalArgumentException();
         }
     }
 }

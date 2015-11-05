@@ -1,9 +1,14 @@
 package com.unb.bikex.view.newtrack;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,7 +34,7 @@ import javax.inject.Inject;
  * Created by Charles on 10/20/2015.
  */
 public class NewTrackActivity extends BaseActivity implements INewTrackView, OnMapReadyCallback, GoogleMap.OnMapClickListener,
-        GoogleMap.OnMapLongClickListener, DialogInterface.OnClickListener  {
+        GoogleMap.OnMapLongClickListener, DialogInterface.OnShowListener  {
 
     @Inject NewTrackPresenter newTrackPresenter;
     private SupportMapFragment map;
@@ -37,6 +42,7 @@ public class NewTrackActivity extends BaseActivity implements INewTrackView, OnM
     private GoogleApiAvailability googleApiAvailability;
 
     EditText trackNameEditText;
+    AlertDialog alert;
 
     private List<Marker> markerList = new ArrayList<>();
     int position = 0;
@@ -71,12 +77,15 @@ public class NewTrackActivity extends BaseActivity implements INewTrackView, OnM
     }
 
     public void saveTrack(View view){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(R.string.track_name);
-        alert.setMessage(R.string.track_name_instruction);
         trackNameEditText = new EditText(this);
-        alert.setView(trackNameEditText);
-        alert.setPositiveButton(R.string.track_name_dialog_button, this);
+        alert = new AlertDialog.Builder(this)
+                .setTitle(R.string.track_name)
+                .setMessage(R.string.track_name_instruction)
+                .setView(trackNameEditText)
+                .setPositiveButton(R.string.track_name_dialog_button, null)
+                .setNegativeButton("Cancel", null)
+                .create();
+        alert.setOnShowListener(this);
         alert.show();
     }
 
@@ -90,9 +99,16 @@ public class NewTrackActivity extends BaseActivity implements INewTrackView, OnM
         newTrackPresenter.onMapLongClick();
     }
 
+
     @Override
-    public void onClick(DialogInterface dialog, int whichButton){
-        newTrackPresenter.saveNewTrack(trackNameEditText.getText().toString());
+    public void onShow(DialogInterface dialog){
+        Button saveButton = alert.getButton(AlertDialog.BUTTON_POSITIVE);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newTrackPresenter.saveNewTrack(trackNameEditText.getText().toString());
+            }
+        });
     }
 
     @Override
@@ -107,12 +123,31 @@ public class NewTrackActivity extends BaseActivity implements INewTrackView, OnM
     }
 
     @Override
+    public void showTrackNameNullError(){
+        String error = getString(R.string.new_track_error_null_message);
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.RED);
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(error);
+        spannableStringBuilder.setSpan(foregroundColorSpan, 0, error.length(), 0);
+        trackNameEditText.setError(spannableStringBuilder);
+    }
+
+    @Override
+    public void showTrackNameExistsError(){
+        String error = getString(R.string.new_track_error_exists_message);
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.RED);
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(error);
+        spannableStringBuilder.setSpan(foregroundColorSpan, 0, error.length(), 0);
+        trackNameEditText.setError(spannableStringBuilder);
+    }
+
+    @Override
     public void showRemoveMarkerError(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showSaveSuccess(){
+        alert.dismiss();
         Toast.makeText(this, R.string.new_track_success_message, Toast.LENGTH_LONG).show();
         finish();
     }

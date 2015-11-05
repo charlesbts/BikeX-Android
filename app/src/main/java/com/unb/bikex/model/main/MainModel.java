@@ -20,4 +20,11 @@ public class MainModel implements IMainModel {
         return trackList;
     }
 
+    @Override
+    public void deleteTrack(long cod) throws Exception{
+        if(databaseHelper.deleteTrack(cod) == 0){
+            throw new Exception();
+        }
+    }
+
 }

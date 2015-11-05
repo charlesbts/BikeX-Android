@@ -3,7 +3,9 @@ package com.unb.bikex.view.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +39,7 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
         setContentView(R.layout.activity_main);
         trackListView = (ListView) findViewById(R.id.trackListView);
         trackListView.setOnItemClickListener(this);
+        registerForContextMenu(trackListView);
     }
 
     @Override
@@ -49,6 +52,17 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
     public void setItemsTrackListView(List<Track> items) {
         trackAdapter.setTrackList(items);
         trackListView.setAdapter(trackAdapter);
+    }
+
+    @Override
+    public void refreshListView(long cod){
+        trackAdapter.removeTrackFromCod(cod);
+        trackAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showErrorDeleteTrack(){
+        Toast.makeText(this, R.string.track_delete_error, Toast.LENGTH_LONG).show();
     }
 
     public void invokeMapTrack(View view){
@@ -67,6 +81,28 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
         Intent intent = new Intent(MainActivity.this, TrackActivity.class);
         intent.putExtra(COD_TRACK, track.getCod());
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.trackListView) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_main_list_view, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Track track = (Track) trackAdapter.getItem(info.position);
+        switch(item.getItemId()) {
+            case R.id.delete:
+                mainPresenter.onContextMenuDelete(track.getCod());
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     @Override

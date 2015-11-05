@@ -9,4 +9,6 @@ public interface INewTrackView{
     void removeMarker();
     void showRemoveMarkerError(String message);
     void showSaveSuccess();
+    void showTrackNameNullError();
+    void showTrackNameExistsError();
 }

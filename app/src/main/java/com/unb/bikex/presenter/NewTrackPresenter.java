@@ -32,7 +32,17 @@ public class NewTrackPresenter {
     }
 
     public void saveNewTrack(String trackName){
-        iNewTrackModel.persistTrack(trackName);
-        iNewTrackView.showSaveSuccess();
+        if(!trackName.isEmpty()) {
+            try {
+                iNewTrackModel.persistTrack(trackName);
+                iNewTrackView.showSaveSuccess();
+            }
+            catch (IllegalArgumentException trackNameAlreadyExists){
+                iNewTrackView.showTrackNameExistsError();
+            }
+        }
+        else{
+            iNewTrackView.showTrackNameNullError();
+        }
     }
 }

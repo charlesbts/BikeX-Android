@@ -36,7 +36,6 @@ public class ModelModule {
     }
 
     @Provides
-    @Singleton
     public IBikeModel provideIBikeModel(IBluetoothConnection iBluetoothConnection, IBluetoothConnected iBluetoothConnected,
                                         UserSharedPreferences userSharedPreferences){
         return new BikeModel(iBluetoothConnection, iBluetoothConnected,  userSharedPreferences);

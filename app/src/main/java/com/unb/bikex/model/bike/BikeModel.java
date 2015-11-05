@@ -126,9 +126,11 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         packet = handleInfo(byte2, byte3);
         if (byte1 == ID_SPEED_SENSOR){
             speed = calculateSpeed(wheelSize, packet);
-            distance++;
+            if(packet != 4096 && packet != 8192 && packet != 16384 && packet != 32768) { /* packet não foi interrupção do ímã */
+                distance++;
+                updateUi(ID_DISTANCE_SENSOR, distance * DISTANCE_CONSTANT);
+            }
             updateUi(ID_SPEED_SENSOR, speed);
-            updateUi(ID_DISTANCE_SENSOR, distance * DISTANCE_CONSTANT);
         }
         else if(byte1 == ID_CADENCE_SENSOR){
             cadence = calculateCadence(packet);
@@ -138,11 +140,11 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         Log.d("NewCadence", Float.toString(cadence));
     }
 
-    private void updateUi(final int idSensor, final float value){
+    private void updateUi(final int idSensor, final float value) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                switch (idSensor){
+                switch (idSensor) {
                     case ID_SPEED_SENSOR:
                         iBikeListener.refreshSpeedView(value);
                         break;
@@ -173,7 +175,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         if(packet != FLAG_OVERFLOW && packet != 0)
             return  (float) (CONVERT_SECOND_TO_MINUTE*FREQUENCY)/packet;
         else
-            return cadence;
+            return 0;
     }
 
     private float calculateSpeed(int wheelSize, int packet){
@@ -181,7 +183,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
             return (float) (wheelSize * CONVERT_INCH_TO_CENTIMETER * Math.PI * FREQUENCY * CONVERT_METER_TO_KILOMETER) /
                 (packet * CONVERT_CENTIMETER_TO_METER);
         else
-            return speed;
+            return 0;
     }
 
 

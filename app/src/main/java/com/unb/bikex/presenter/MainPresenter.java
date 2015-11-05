@@ -20,4 +20,14 @@ public class MainPresenter{
         iMainView.setItemsTrackListView(iMainModel.getTrackList());
     }
 
+    public void onContextMenuDelete(long codTrack){
+        try{
+            iMainModel.deleteTrack(codTrack);
+            iMainView.refreshListView(codTrack);
+        }
+        catch(Exception trackNotDeleted){
+            iMainView.showErrorDeleteTrack();
+        }
+    }
+
 }

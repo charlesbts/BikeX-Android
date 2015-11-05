@@ -29,6 +29,14 @@ public class TrackAdapter extends BaseAdapter {
         this.trackList = trackList;
     }
 
+    public void removeTrackFromCod(long cod){
+        for(Track track : trackList){
+            if(track.getCod() == cod){
+                trackList.remove(track);
+            }
+        }
+    }
+
     @Override
     public int getCount(){
         return this.trackList.size();
