@@ -15,6 +15,7 @@ public class UserPreferencesModel implements IUserPreferencesModel{
     private final int MAX_WHEEL_SIZE = 33;
     private String bluetoothMacAddress;
     private int wheelSize;
+    private float desiredCadence;
 
     public UserPreferencesModel(UserSharedPreferences userSharedPreferences, IBluetoothSetup iBluetoothSetup){
         this.userSharedPreferences = userSharedPreferences;
@@ -24,6 +25,11 @@ public class UserPreferencesModel implements IUserPreferencesModel{
     @Override
     public void setBluetoothMacAddress(String bluetoothMacAddress){
         this.bluetoothMacAddress = bluetoothMacAddress;
+    }
+
+    @Override
+    public void setDesiredCadence(float desiredCadence){
+        this.desiredCadence = desiredCadence;
     }
 
     @Override
@@ -42,13 +48,18 @@ public class UserPreferencesModel implements IUserPreferencesModel{
     }
 
     @Override
+    public float getDesiredCadence(){
+        return userSharedPreferences.retrieveDesiredCadence();
+    }
+
+    @Override
     public String getBluetoothMacAddress(){
         return userSharedPreferences.retrieveBluetoothMacAddress();
     }
 
     @Override
     public void save(){
-        userSharedPreferences.save(wheelSize, bluetoothMacAddress);
+        userSharedPreferences.save(wheelSize, desiredCadence, bluetoothMacAddress);
     }
 
     @Override

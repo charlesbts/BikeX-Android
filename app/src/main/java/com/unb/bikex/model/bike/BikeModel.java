@@ -22,6 +22,8 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     private final int ID_SPEED_SENSOR = 13;
     private final int ID_CADENCE_SENSOR = 42;
     private final int ID_DISTANCE_SENSOR = 24;
+    private final int ID_AVERAGE_SPEED_SENSOR = 32;
+    private final int ID_AVERAGE_CADENCE_SENSOR = 9;
     private final double CONVERT_INCH_TO_CENTIMETER = 2.54;
     private final double CONVERT_METER_TO_KILOMETER = 3.6;
     private final int CONVERT_CENTIMETER_TO_METER = 100;
@@ -29,6 +31,11 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     private final int FREQUENCY = 4096;
     private final int FLAG_OVERFLOW = 32768;
     private float DISTANCE_CONSTANT;
+    private float DESIRED_CADENCE_MIN;
+    private float DESIRED_CADENCE_MAX;
+    private final String SHIFT_UP = "UP";
+    private final String SHIFT_DOWN = "DOWN";
+    private final String SHIFT_OK = " ";
     private volatile boolean isDoneFlag;
 
     private IBluetoothConnection iBluetoothConnection;
@@ -37,7 +44,9 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     private IBluetoothConnected iBluetoothConnected;
     private UserSharedPreferences userSharedPreferences;
     private IBikeListener iBikeListener;
-    private float speed = 0, cadence = 0, distance = 0;
+    private float speed = 0, cadence = 0, distance = 0, averageSpeed = 0, averageCadence = 0;
+    private String shift = SHIFT_OK;
+    private int cadenceCount = 0, speedCount = 0;
 
     @Inject
     public BikeModel(IBluetoothConnection iBluetoothConnection, IBluetoothConnected iBluetoothConnected,
@@ -59,9 +68,13 @@ public class BikeModel implements IBikeModel, ICallbackThread {
 
     @Override
     public void prepareUserDependency() throws NullPointerException{
+        float desiredCadence;
         bluetoothMacAddress = userSharedPreferences.retrieveBluetoothMacAddress();
         wheelSize = userSharedPreferences.retrieveWheelSize();
         DISTANCE_CONSTANT = (float) (wheelSize * CONVERT_INCH_TO_CENTIMETER * Math.PI)/(CONVERT_CENTIMETER_TO_METER * 1000);
+        desiredCadence = userSharedPreferences.retrieveDesiredCadence();
+        DESIRED_CADENCE_MIN = desiredCadence - ((float) 0.1 * desiredCadence);
+        DESIRED_CADENCE_MAX = desiredCadence + ((float) 0.1 * desiredCadence);
         if(bluetoothMacAddress == null){
             throw new NullPointerException();
         }
@@ -111,9 +124,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
                 }
                 while(isDoneFlag){
                     byte2 = iBluetoothConnected.readByte();
-                    Log.d("ByteMSB", Integer.toString(byte2));
                     byte3 = iBluetoothConnected.readByte();
-                    Log.d("ByteLSB", Integer.toString(byte3));
                     updateModel(byte1, byte2, byte3);
                     byte1 = iBluetoothConnected.readByte();
                 }
@@ -126,6 +137,11 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         packet = handleInfo(byte2, byte3);
         if (byte1 == ID_SPEED_SENSOR){
             speed = calculateSpeed(wheelSize, packet);
+            if(speed != 0.0) {
+                speedCount++;
+                averageSpeed = averageSpeed + speed;
+                updateUi(ID_AVERAGE_SPEED_SENSOR, averageSpeed/speedCount);
+            }
             if(packet != 4096 && packet != 8192 && packet != 16384 && packet != 32768) { /* packet não foi interrupção do ímã */
                 distance++;
                 updateUi(ID_DISTANCE_SENSOR, distance * DISTANCE_CONSTANT);
@@ -134,10 +150,28 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         }
         else if(byte1 == ID_CADENCE_SENSOR){
             cadence = calculateCadence(packet);
+            if(cadence < DESIRED_CADENCE_MIN && !shift.equals(SHIFT_UP)){
+                shift = SHIFT_UP;
+                updateUiShift(SHIFT_UP);
+            }
+            else if(cadence > DESIRED_CADENCE_MAX && !shift.equals(SHIFT_DOWN)){
+                shift = SHIFT_DOWN;
+                updateUiShift(SHIFT_DOWN);
+            }
+            else {
+                if(!shift.equals(SHIFT_OK)) {
+                    shift = SHIFT_OK;
+                    updateUiShift(SHIFT_OK);
+                }
+            }
+
+            if(cadence != 0.0) {
+                cadenceCount++;
+                averageCadence = averageCadence + cadence;
+                updateUi(ID_AVERAGE_CADENCE_SENSOR, averageCadence/cadenceCount);
+            }
             updateUi(ID_CADENCE_SENSOR, cadence);
         }
-        Log.d("NewSpeed", Float.toString(speed));
-        Log.d("NewCadence", Float.toString(cadence));
     }
 
     private void updateUi(final int idSensor, final float value) {
@@ -154,6 +188,12 @@ public class BikeModel implements IBikeModel, ICallbackThread {
                     case ID_DISTANCE_SENSOR:
                         iBikeListener.refreshDistanceView(value);
                         break;
+                    case ID_AVERAGE_SPEED_SENSOR:
+                        iBikeListener.refreshAverageSpeedView(value);
+                        break;
+                    case ID_AVERAGE_CADENCE_SENSOR:
+                        iBikeListener.refreshAverageCadenceView(value);
+                        break;
                     default:
                         /* Do nothing */
                         break;
@@ -162,6 +202,14 @@ public class BikeModel implements IBikeModel, ICallbackThread {
         });
     }
 
+    private void updateUiShift(final String shift){
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                iBikeListener.refreshShift(shift);
+            }
+        });
+    }
 
     private int handleInfo(int msb, int lsb){
         int packet = 0;

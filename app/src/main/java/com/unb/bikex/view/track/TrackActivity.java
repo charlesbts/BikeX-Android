@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Charles on 9/22/2015.
  */
-public class TrackActivity extends BaseActivity {
+public class TrackActivity extends BaseActivity implements MapEvents {
     TrackModule trackModule;
 
     @Override
@@ -39,6 +39,11 @@ public class TrackActivity extends BaseActivity {
     protected List<Object> getModules() {
         trackModule = new TrackModule(null);
         return Arrays.<Object>asList(trackModule);
+    }
+
+    @Override
+    public void onFirstMarkerAchieve(){
+
     }
 
     @Override

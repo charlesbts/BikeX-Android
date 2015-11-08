@@ -20,6 +20,7 @@ public class UserPreferencesPresenter {
     public void onResume(){
         try {
             int wheelSize;
+            float desiredCadence;
             String bluetoothMacAddress;
             List<String> device = iUserPreferencesModel.getBluetoothDeviceList();
             bluetoothMacAddress = iUserPreferencesModel.getBluetoothMacAddress();
@@ -28,13 +29,17 @@ public class UserPreferencesPresenter {
             if(wheelSize != 0) {
                 iUserPreferencesView.setWheelSizeEditText(Integer.toString(wheelSize));
             }
+            desiredCadence = iUserPreferencesModel.getDesiredCadence();
+            if(desiredCadence != 0){
+                iUserPreferencesView.setDesiredCadenceEditText(Float.toString(desiredCadence));
+            }
         }
         catch (IllegalStateException bluetoothIsNotEnable){
             iUserPreferencesView.requestBluetoothEnable(bluetoothIsNotEnable.getMessage());
         }
     }
 
-    public void setData(String wheelSize, String bluetoothMacAddress){
+    public void setData(String wheelSize, String desiredCadence, String bluetoothMacAddress){
         try {
             if(wheelSize.isEmpty()) {
                 iUserPreferencesView.showErrorSavePreferences("Please, enter the wheel size");
@@ -42,8 +47,12 @@ public class UserPreferencesPresenter {
             else if(bluetoothMacAddress.isEmpty()){
                 iUserPreferencesView.showErrorSavePreferences("Please, choose one bluetooth device");
             }
+            else if(desiredCadence.isEmpty()){
+                iUserPreferencesView.showErrorSavePreferences("Please, choose a desired cadence");
+            }
             else {
                 iUserPreferencesModel.setWheelSize(Integer.parseInt(wheelSize));
+                iUserPreferencesModel.setDesiredCadence(Float.parseFloat(desiredCadence));
                 iUserPreferencesModel.setBluetoothMacAddress(bluetoothMacAddress);
                 iUserPreferencesModel.save();
                 iUserPreferencesView.showSuccessSavePreferences();

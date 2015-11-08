@@ -9,5 +9,6 @@ import java.util.List;
  * Created by Charles on 10/22/2015.
  */
 public interface IMapModel{
-    public List<DataLocation> getDataLocationList(long trackCod);
+    List<DataLocation> getDataLocationList(long trackCod);
+    boolean checkDataLocation(double latitude, double longitude) throws IndexOutOfBoundsException;
 }

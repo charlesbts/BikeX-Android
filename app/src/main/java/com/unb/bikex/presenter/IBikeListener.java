@@ -8,6 +8,9 @@ public interface IBikeListener {
     void setErrorBluetoothConnection();
     void setSuccessBluetoothConnection(String deviceName);
     void refreshSpeedView(float speed);
-    void refreshCadenceView(float speed);
+    void refreshCadenceView(float cadence);
     void refreshDistanceView(float distance);
+    void refreshAverageSpeedView(float averageSpeed);
+    void refreshAverageCadenceView(float averageCadence);
+    void refreshShift(String shift);
 }

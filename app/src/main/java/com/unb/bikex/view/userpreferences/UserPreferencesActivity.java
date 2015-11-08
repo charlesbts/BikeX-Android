@@ -25,12 +25,14 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
     @Inject UserPreferencesPresenter userPreferencesPresenter;
     @Inject BluetoothDeviceAdapter bluetoothDeviceAdapter;
     private EditText wheelSizeEditText;
+    private EditText desiredCadenceEditText;
     private ListView bluetoothDeviceListView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_preferences);
         wheelSizeEditText = (EditText) findViewById(R.id.wheelSizeEditText);
+        desiredCadenceEditText = (EditText) findViewById(R.id.desired_cadence);
         bluetoothDeviceListView = (ListView) findViewById(R.id.bluetoothDeviceListView);
     }
 
@@ -42,7 +44,9 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
 
     public void saveUserPreferences(View view){
         String bluetoothMacAddress = bluetoothDeviceAdapter.getBluetoothMacAddress();
-        userPreferencesPresenter.setData(wheelSizeEditText.getText().toString(), bluetoothMacAddress);
+        String wheelSize = wheelSizeEditText.getText().toString();
+        String desiredCadence = desiredCadenceEditText.getText().toString();
+        userPreferencesPresenter.setData(wheelSize, desiredCadence, bluetoothMacAddress);
     }
 
     @Override
@@ -66,6 +70,11 @@ public class UserPreferencesActivity extends BaseActivity implements IUserPrefer
     @Override
     public void setWheelSizeEditText(String wheelSize){
         wheelSizeEditText.setText(wheelSize);
+    }
+
+    @Override
+    public void setDesiredCadenceEditText(String desiredCadence){
+        desiredCadenceEditText.setText(desiredCadence);
     }
 
     @Override

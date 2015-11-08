@@ -10,6 +10,7 @@ public interface IUserPreferencesView {
     void showErrorSavePreferences(String message);
     void setItemsBluetoothDeviceListView(List<String> items, String defaultMacAddress);
     void setWheelSizeEditText(String wheelSize);
+    void setDesiredCadenceEditText(String desiredCadence);
     void requestBluetoothEnable(String enable);
     void finishWithShowErrorBluetoothEnable();
 }

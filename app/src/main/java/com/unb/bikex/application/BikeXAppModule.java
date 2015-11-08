@@ -32,6 +32,7 @@ public class BikeXAppModule {
     }
 
     @Provides
+    @Singleton
     public UserSharedPreferences provideUserSharedPreferences(BikeXApp context){
         return new UserSharedPreferences(context);
     }

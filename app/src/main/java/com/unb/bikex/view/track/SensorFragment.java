@@ -2,6 +2,7 @@ package com.unb.bikex.view.track;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -20,6 +19,7 @@ import com.unb.bikex.R;
 import com.unb.bikex.presenter.SensorPresenter;
 import com.unb.bikex.view.BaseFragment;
 import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
+
 
 import javax.inject.Inject;
 
@@ -34,6 +34,9 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
     private TextView speedTextView;
     private TextView cadenceTextView;
     private TextView distanceTextView;
+    private TextView averageSpeedTextView;
+    private TextView averageCadenceTextView;
+    private TextView shiftTextView;
     private Chronometer chronometer;
     private ProgressDialog bluetoothConnectionProgressDialog;
     private boolean isTrackOnFlag = false;
@@ -53,6 +56,9 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
         speedTextView = (TextView) view.findViewById(R.id.speed);
         cadenceTextView = (TextView) view.findViewById(R.id.cadence);
         distanceTextView = (TextView) view.findViewById(R.id.distance);
+        averageSpeedTextView = (TextView) view.findViewById(R.id.average_speed);
+        averageCadenceTextView = (TextView) view.findViewById(R.id.average_cadence);
+        shiftTextView = (TextView) view.findViewById(R.id.shift);
         chronometer = (Chronometer) view.findViewById(R.id.chronometer);
 
         startTrackButton.setOnLongClickListener(this);
@@ -132,6 +138,28 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
     @Override
     public void refreshDistance(String inByte){
         distanceTextView.setText(inByte);
+    }
+
+    @Override
+    public void refreshAverageSpeed(String averageSpeed){
+        averageSpeedTextView.setText(averageSpeed);
+    }
+
+    @Override
+    public void refreshAverageCadence(String averageCadence){
+        averageCadenceTextView.setText(averageCadence);
+    }
+
+    @Override
+    public void refreshShiftRedColor(String shift){
+        shiftTextView.setTextColor(Color.RED);
+        shiftTextView.setText(shift);
+    }
+
+    @Override
+    public void refreshShiftGreenColor(String shift){
+        shiftTextView.setTextColor(Color.GREEN);
+        shiftTextView.setText(shift);
     }
 
     @Override

@@ -62,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_LOCATION_TABLE = "CREATE TABLE " + TABLE_LOCATION +
                 "(" +
                     LOCATION_COLUMN_COD + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    LOCATION_COLUMN_COD_TRACK_FK + " INTEGER REFERENCES " + TABLE_TRACK + ", " +
+                    LOCATION_COLUMN_COD_TRACK_FK + " INTEGER REFERENCES " + TABLE_TRACK + " ON DELETE CASCADE, " +
                     LOCATION_COLUMN_SEQUENCE + " INTEGER, " +
                     LOCATION_COLUMN_LATITUDE + " DOUBLE, " +
                     LOCATION_COLUMN_LONGITUDE + " DOUBLE" +
@@ -70,6 +70,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TRACK_TABLE);
         db.execSQL(CREATE_LOCATION_TABLE);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        super.onOpen(db);
+        if(!db.isReadOnly()){
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
     }
 
     @Override

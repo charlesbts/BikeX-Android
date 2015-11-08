@@ -22,6 +22,7 @@
     <string name="title_activity_map_track">MapTrackActivity</string>
     <string name="title_activity_user_preferences">Preferences</string>
     <string name="wheel_size_text_view">Wheel size: </string>
+    <string name="desired_cadence_header">Desired Cadence: </string>
 
     <string name="hello_world">Hello world!</string>
 
@@ -35,6 +36,9 @@
     <string name="speed_header">Speed </string>
     <string name="cadence_header">Cadence </string>
     <string name="distance_header">Distance </string>
+    <string name="shift_header">Shift </string>
+    <string name="average_speed_header">Average speed </string>
+    <string name="average_cadence_header">Average cadence </string>
     <string name="speed_unit">km/h</string>
     <string name="cadence_unit">RPM</string>
     <string name="distance_unit">km</string>
@@ -42,6 +46,6 @@
     <string name="preferences_update_success">Preferences updated</string>
     <string name="preferences_update_message">Preferences should be update</string>
     <string name="bluetooth_device_instruction">Bluetooth device(s):</string>
-    <string name="wheel_size_unit">inches</string>
+    <string name="wheel_size_unit">\'\'</string>
 
 </resources>

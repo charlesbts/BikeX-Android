@@ -13,6 +13,10 @@ public interface ISensorView {
     void refreshSpeed(String speed);
     void refreshCadence(String cadence);
     void refreshDistance(String distance);
+    void refreshAverageSpeed(String averageSpeed);
+    void refreshAverageCadence(String averageCadence);
+    void refreshShiftRedColor(String shift);
+    void refreshShiftGreenColor(String shift);
     void startTrack();
     void hideStartTrackButton();
     void startUserPreferencesActivity();

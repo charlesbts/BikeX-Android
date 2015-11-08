@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/startTrack"
         android:layout_centerHorizontal="true"
-        android:textSize="40sp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/speed_header"
@@ -121,5 +121,89 @@
         android:layout_below="@+id/distance_header"
         android:layout_alignLeft="@+id/speed_unit"
         android:layout_alignStart="@+id/speed_unit" />
+
+    <TextView
+        android:id="@+id/shift_header"
+        android:text="@string/shift_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#EFFFFF"
+        android:layout_alignTop="@+id/distance_header"
+        android:layout_alignLeft="@+id/cadence"
+        android:layout_alignStart="@+id/cadence" />
+
+    <TextView
+        android:id="@+id/shift"
+        android:text=" "
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_below="@+id/distance_header"
+        android:layout_alignLeft="@+id/shift_header"
+        android:layout_alignStart="@+id/shift_header" />
+
+    <TextView
+        android:id="@+id/average_speed_header"
+        android:text="@string/average_speed_header"
+        android:background="@drawable/text_view_style"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#EFFFFF"
+        android:layout_below="@+id/distance"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/average_speed"
+        android:text="0.0"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_below="@+id/average_speed_header"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/average_speed_unit"
+        android:text="@string/speed_unit"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/average_speed_header"
+        android:layout_alignLeft="@+id/distance_unit"
+        android:layout_alignStart="@+id/distance_unit" />
+
+    <TextView
+        android:id="@+id/average_cadence_header"
+        android:text="@string/average_cadence_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#EFFFFF"
+        android:layout_alignTop="@+id/average_speed_header"
+        android:layout_alignLeft="@+id/cadence"
+        android:layout_alignStart="@+id/cadence" />
+
+    <TextView
+        android:id="@+id/average_cadence"
+        android:text="0.0"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_below="@+id/average_speed_header"
+        android:layout_alignLeft="@+id/average_cadence_header"
+        android:layout_alignStart="@+id/average_cadence_header" />
+
+    <TextView
+        android:id="@+id/average_cadence_unit"
+        android:text="@string/cadence_unit"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/average_speed_header"
+        android:layout_alignLeft="@+id/cadence_unit"
+        android:layout_alignStart="@+id/cadence_unit" />
 
 </RelativeLayout>

@@ -31,14 +31,36 @@
         android:layout_alignParentStart="true" />
 
     <TextView
+        android:id="@+id/desired_cadence_header"
+        android:text="@string/desired_cadence_header"
+        android:textColor="#EFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/desired_cadence"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="34dp"
+        android:layout_marginEnd="34dp" />
+
+    <TextView
         android:id="@+id/wheel_size_unit"
         android:text="@string/wheel_size_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/abc_text_size_large_material"
-        android:layout_alignBottom="@+id/wheelSizeEditText"
-        android:layout_alignLeft="@+id/saveUserPreferencesButton"
-        android:layout_alignStart="@+id/saveUserPreferencesButton" />
+        android:layout_alignTop="@+id/wheelSizeEditText"
+        android:layout_toRightOf="@+id/wheelSizeEditText"
+        android:layout_toEndOf="@+id/wheelSizeEditText" />
+
+    <TextView
+        android:id="@+id/desired_cadence_unit"
+        android:text="@string/cadence_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:layout_above="@+id/bluetooth_device_text_view"
+        android:layout_toRightOf="@+id/desired_cadence"
+        android:layout_toEndOf="@+id/desired_cadence" />
 
     <EditText
         android:id="@+id/wheelSizeEditText"
@@ -49,6 +71,16 @@
         android:layout_below="@+id/wheelSizeTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/desired_cadence"
+        android:layout_width="45sp"
+        android:maxLength="3"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_below="@+id/wheelSizeTextView"
+        android:layout_alignLeft="@+id/desired_cadence_header"
+        android:layout_alignStart="@+id/desired_cadence_header" />
 
     <TextView
         android:id="@+id/bluetooth_device_text_view"

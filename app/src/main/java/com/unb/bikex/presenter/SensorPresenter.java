@@ -72,6 +72,26 @@ public class SensorPresenter implements IBikeListener {
         iSensorView.refreshDistance(String.format("%.1f", distance));
     }
 
+    @Override
+    public void refreshAverageSpeedView(float averageSpeed){
+        iSensorView.refreshAverageSpeed(String.format("%.1f", averageSpeed));
+    }
+
+    @Override
+    public void refreshAverageCadenceView(float averageCadence){
+        iSensorView.refreshAverageCadence(String.format("%.1f", averageCadence));
+    }
+
+    @Override
+    public void refreshShift(String shift){
+        if(shift.equals("UP")) {
+            iSensorView.refreshShiftGreenColor(shift);
+        }
+        else {
+            iSensorView.refreshShiftRedColor(shift);
+        }
+    }
+
     public void onDestroy(){
         iSensorView.finishWithShowErrorBluetoothEnable();
     }
