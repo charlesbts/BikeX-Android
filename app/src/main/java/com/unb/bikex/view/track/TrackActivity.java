@@ -43,7 +43,8 @@ public class TrackActivity extends BaseActivity implements MapEvents {
 
     @Override
     public void onFirstMarkerAchieve(){
-
+        SensorFragment sensorFragment = (SensorFragment) getSupportFragmentManager().getFragments().get(0);
+        sensorFragment.onStartTrack();
     }
 
     @Override

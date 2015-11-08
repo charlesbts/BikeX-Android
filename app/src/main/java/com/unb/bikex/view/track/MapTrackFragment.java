@@ -117,6 +117,11 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
         markerList.remove(0);
     }
 
+    @Override
+    public void notifyFirstMarkerAchieve(){
+        mapEventsCallBack.onFirstMarkerAchieve();
+    }
+
     private void setupMap(){
         map.getUiSettings().setScrollGesturesEnabled(false);
         map.getUiSettings().setZoomControlsEnabled(true);

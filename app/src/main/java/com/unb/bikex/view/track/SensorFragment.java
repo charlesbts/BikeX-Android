@@ -166,7 +166,7 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
     public void startTrack(){
         isTrackOnFlag = true;
         startTrackButton.setText(R.string.stop_track_button_name);
-        chronometer.start();
+        //chronometer.start();
     }
 
     @Override
@@ -189,6 +189,11 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
             startTrackButton.setText(R.string.start_track_button_name);
         }
         return true;
+    }
+
+    public void onStartTrack(){
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
     }
 
 }

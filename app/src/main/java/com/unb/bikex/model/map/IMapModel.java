@@ -11,4 +11,5 @@ import java.util.List;
 public interface IMapModel{
     List<DataLocation> getDataLocationList(long trackCod);
     boolean checkDataLocation(double latitude, double longitude) throws IndexOutOfBoundsException;
+    int getDataLocationPosition();
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public class MapModel implements IMapModel {
     private DatabaseHelper databaseHelper;
     private List<DataLocation> locationDataList;
+    private int dataLocationPosition = -1;
 
     public MapModel(DatabaseHelper databaseHelper) {
         this.databaseHelper = databaseHelper;
@@ -30,6 +31,7 @@ public class MapModel implements IMapModel {
                 isTheSameLocation(longitude, locationDataList.get(0).getLongitude())) {
             if(!locationDataList.isEmpty()) {
                 locationDataList.remove(0);
+                dataLocationPosition++;
                 return true;
             }
             else{
@@ -37,6 +39,11 @@ public class MapModel implements IMapModel {
             }
         }
         return false;
+    }
+
+    @Override
+    public int getDataLocationPosition(){
+        return dataLocationPosition;
     }
 
     private boolean isTheSameLocation(double l1, double l2) {

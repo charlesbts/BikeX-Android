@@ -9,4 +9,5 @@ public interface IMapTrackView {
     void drawRedMarker(double latitude, double longitude);
     void changeColorInitialMarker();
     void removeInitialMarker();
+    void notifyFirstMarkerAchieve();
 }

@@ -40,6 +40,9 @@ public class MapTrackPresenter {
             if(iMapModel.checkDataLocation(latitude, longitude)) {
                 iMapTrackView.removeInitialMarker();
                 iMapTrackView.changeColorInitialMarker();
+                if(iMapModel.getDataLocationPosition() == 0){
+                    iMapTrackView.notifyFirstMarkerAchieve();
+                }
             }
         }
         catch(Exception emptyList){
