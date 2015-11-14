@@ -13,6 +13,7 @@ public class MapModel implements IMapModel {
     private DatabaseHelper databaseHelper;
     private List<DataLocation> locationDataList;
     private int dataLocationPosition = -1;
+    private boolean isFirstCall = true;
 
     public MapModel(DatabaseHelper databaseHelper) {
         this.databaseHelper = databaseHelper;
@@ -20,22 +21,22 @@ public class MapModel implements IMapModel {
 
     @Override
     public List<DataLocation> getDataLocationList(long trackCod) {
-        locationDataList = databaseHelper.selectAllDataLocationsFromTrack(trackCod);
+        if(isFirstCall) {
+            locationDataList = databaseHelper.selectAllDataLocationsFromTrack(trackCod);
+            isFirstCall = false;
+        }
         return locationDataList;
     }
 
 
     @Override
-    public boolean checkDataLocation(double latitude, double longitude) throws IndexOutOfBoundsException{
-        if (isTheSameLocation(latitude, locationDataList.get(0).getLatitude()) &&
-                isTheSameLocation(longitude, locationDataList.get(0).getLongitude())) {
-            if(!locationDataList.isEmpty()) {
+    public boolean checkDataLocation(double latitude, double longitude){
+        if(!locationDataList.isEmpty()){
+            if (isTheSameLocation(latitude, locationDataList.get(0).getLatitude()) &&
+                    isTheSameLocation(longitude, locationDataList.get(0).getLongitude())) {
                 locationDataList.remove(0);
                 dataLocationPosition++;
                 return true;
-            }
-            else{
-                throw new IndexOutOfBoundsException();
             }
         }
         return false;
@@ -43,6 +44,9 @@ public class MapModel implements IMapModel {
 
     @Override
     public int getDataLocationPosition(){
+        if(locationDataList.isEmpty()){
+            return IMapModel.LAST_MARKER;
+        }
         return dataLocationPosition;
     }
 

@@ -18,6 +18,5 @@ public interface ISensorView {
     void refreshShiftRedColor(String shift);
     void refreshShiftGreenColor(String shift);
     void startTrack();
-    void hideStartTrackButton();
     void startUserPreferencesActivity();
 }

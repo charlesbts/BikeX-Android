@@ -1,6 +1,8 @@
 package com.unb.bikex.presenter;
 
 
+import android.util.Log;
+
 import com.unb.bikex.model.DataLocation;
 import com.unb.bikex.model.map.IMapModel;
 import com.unb.bikex.view.track.IMapTrackView;
@@ -36,17 +38,16 @@ public class MapTrackPresenter {
 
     public void onMyLocationChange(double latitude, double longitude){
         iMapTrackView.moveCamera(latitude, longitude);
-        try {
-            if(iMapModel.checkDataLocation(latitude, longitude)) {
-                iMapTrackView.removeInitialMarker();
+        if(iMapModel.checkDataLocation(latitude, longitude)){
+            iMapTrackView.removeInitialMarker();
+            if(iMapModel.getDataLocationPosition() != IMapModel.LAST_MARKER)
                 iMapTrackView.changeColorInitialMarker();
-                if(iMapModel.getDataLocationPosition() == 0){
-                    iMapTrackView.notifyFirstMarkerAchieve();
-                }
+            if(iMapModel.getDataLocationPosition() == IMapModel.FIRST_MARKER){
+                iMapTrackView.notifyFirstMarkerAchieve();
             }
-        }
-        catch(Exception emptyList){
-
+            else if(iMapModel.getDataLocationPosition() == IMapModel.LAST_MARKER){
+                iMapTrackView.notifyLastMarkerAchieve();
+            }
         }
     }
 }

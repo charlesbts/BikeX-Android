@@ -1,9 +1,11 @@
 package com.unb.bikex.view.track;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -125,10 +127,6 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
         speedTextView.setText(inByte);
     }
 
-    @Override
-    public void hideStartTrackButton(){
-        startTrackButton.setVisibility(View.GONE);
-    }
 
     @Override
     public void refreshCadence(String inByte){
@@ -179,7 +177,7 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
     @Override
     public boolean onLongClick(View view){
         if(!isTrackOnFlag) {
-            chronometer.setBase(SystemClock.elapsedRealtime());
+            //chronometer.setBase(SystemClock.elapsedRealtime());
             sensorPresenter.onResume();
         }
         else{
@@ -191,9 +189,13 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
         return true;
     }
 
-    public void onStartTrack(){
+    public void onMapStartTrack(){
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
+    }
+
+    public void onMapStopTrack(){
+        chronometer.stop();
     }
 
 }

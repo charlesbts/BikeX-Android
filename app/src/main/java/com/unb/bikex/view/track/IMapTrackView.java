@@ -10,4 +10,6 @@ public interface IMapTrackView {
     void changeColorInitialMarker();
     void removeInitialMarker();
     void notifyFirstMarkerAchieve();
+    void notifyLastMarkerAchieve();
+    void showDebugMessage(String message);
 }

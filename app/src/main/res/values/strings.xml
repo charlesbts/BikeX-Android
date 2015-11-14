@@ -22,7 +22,7 @@
     <string name="title_activity_map_track">MapTrackActivity</string>
     <string name="title_activity_user_preferences">Preferences</string>
     <string name="wheel_size_text_view">Wheel size: </string>
-    <string name="desired_cadence_header">Desired Cadence: </string>
+    <string name="desired_cadence_header">Desired cadence: </string>
 
     <string name="hello_world">Hello world!</string>
 

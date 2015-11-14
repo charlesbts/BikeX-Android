@@ -5,4 +5,5 @@ package com.unb.bikex.view.track;
  */
 public interface MapEvents {
     void onFirstMarkerAchieve();
+    void onLastMarkerAchieve();
 }

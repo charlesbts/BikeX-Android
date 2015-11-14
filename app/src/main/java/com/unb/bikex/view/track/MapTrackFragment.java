@@ -122,6 +122,16 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
         mapEventsCallBack.onFirstMarkerAchieve();
     }
 
+    @Override
+    public void notifyLastMarkerAchieve(){
+        mapEventsCallBack.onLastMarkerAchieve();
+    }
+
+    @Override
+    public void showDebugMessage(String message){
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
     private void setupMap(){
         map.getUiSettings().setScrollGesturesEnabled(false);
         map.getUiSettings().setZoomControlsEnabled(true);
