@@ -1,6 +1,6 @@
 package com.unb.bikex.view.main;
 
-import com.unb.bikex.model.main.Track;
+import com.unb.bikex.entity.Track;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.unb.bikex.model.newtrack;
 
 import com.unb.bikex.database.DatabaseHelper;
-import com.unb.bikex.model.DataLocation;
-import com.unb.bikex.model.main.Track;
+import com.unb.bikex.entity.Location;
+import com.unb.bikex.entity.Track;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class NewTrackModel implements INewTrackModel {
     DatabaseHelper databaseHelper;
-    List<DataLocation> dataLocationList = new ArrayList<>();
+    List<Location> locationList = new ArrayList<>();
     int position = 0;
 
     public NewTrackModel(DatabaseHelper databaseHelper){
@@ -21,8 +21,8 @@ public class NewTrackModel implements INewTrackModel {
 
     @Override
     public void addDataLocation(double latitude, double longitude){
-        DataLocation dataLocation = new DataLocation(latitude, longitude);
-        dataLocationList.add(position, dataLocation);
+        Location location = new Location(latitude, longitude);
+        locationList.add(position, location);
         position++;
     }
 
@@ -30,7 +30,7 @@ public class NewTrackModel implements INewTrackModel {
     public void removeDataLocation() throws IndexOutOfBoundsException{
         position--;
         if(position >= 0){
-            dataLocationList.remove(position);
+            locationList.remove(position);
         }
         else{
             position = 0;
@@ -45,9 +45,9 @@ public class NewTrackModel implements INewTrackModel {
 
         if(!databaseHelper.trackNameExists(trackName)) {
             trackCod = databaseHelper.insertTrack(track);
-            for (int position = 0; position < dataLocationList.size(); position++) {
+            for (int position = 0; position < locationList.size(); position++) {
                 databaseHelper.insertLocation(trackCod, position,
-                        dataLocationList.get(position).getLatitude(), dataLocationList.get(position).getLongitude());
+                        locationList.get(position).getLatitude(), locationList.get(position).getLongitude());
             }
         }
         else{

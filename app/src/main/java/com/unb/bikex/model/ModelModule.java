@@ -9,6 +9,8 @@ import com.unb.bikex.model.map.IMapModel;
 import com.unb.bikex.model.map.MapModel;
 import com.unb.bikex.model.newtrack.INewTrackModel;
 import com.unb.bikex.model.newtrack.NewTrackModel;
+import com.unb.bikex.model.statistic.IStatisticModel;
+import com.unb.bikex.model.statistic.StatisticModel;
 import com.unb.bikex.model.userpreferences.IUserPreferencesModel;
 import com.unb.bikex.model.userpreferences.UserPreferencesModel;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;
@@ -56,4 +58,10 @@ public class ModelModule {
     public INewTrackModel provideINewTrackModel(DatabaseHelper databaseHelper){
         return new NewTrackModel(databaseHelper);
     }
+
+    @Provides
+    public IStatisticModel provideIStatisticModel(DatabaseHelper databaseHelper){
+        return new StatisticModel(databaseHelper);
+    }
+
 }

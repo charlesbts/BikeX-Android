@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
-import com.unb.bikex.model.DataLocation;
-import com.unb.bikex.model.main.Track;
+import com.unb.bikex.entity.Location;
+import com.unb.bikex.entity.Track;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /* Table names */
     private static final String TABLE_TRACK = "track";
     private static final String TABLE_LOCATION = "location";
-    private static final String TABLE_STATISTICS = "statistics";
+    private static final String TABLE_STATISTIC = "statistics";
 
     /* Track table columns*/
     private static final String TRACK_COLUMN_COD = "cod";
@@ -40,13 +40,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String LOCATION_COLUMN_LONGITUDE = "longitude";
 
     /* Statistics table columns*/
-    private static final String STATISTICS_COLUMN_COD = "cod";
-    private static final String STATISTICS_COLUMN_DATE = "date";
-    private static final String STATISTICS_COLUMN_AVERAGE_SPEED = "average_speed";
-    private static final String STATISTICS_COLUMN_AVERAGE_CADENCE = "average_cadence";
-    private static final String STATISTICS_COLUMN_DISTANCE = "distance";
-    private static final String STATISTICS_COLUMN_TIME = "time";
-    private static final String STATISTICS_COLUMN_COD_TRACK_FK = "cod_track";
+    private static final String STATISTIC_COLUMN_COD = "cod";
+    private static final String STATISTIC_COLUMN_TIME_STAMP = "time_stamp";
+    private static final String STATISTIC_COLUMN_AVERAGE_SPEED = "average_speed";
+    private static final String STATISTIC_COLUMN_AVERAGE_CADENCE = "average_cadence";
+    private static final String STATISTIC_COLUMN_DISTANCE = "distance";
+    private static final String STATISTIC_COLUMN_ELAPSED_TIME = "elapsed_time";
+    private static final String STATISTIC_COLUMN_COD_TRACK_FK = "cod_track";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -68,8 +68,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     LOCATION_COLUMN_LONGITUDE + " DOUBLE" +
                 ")";
 
+        String CREATE_STATISTIC_TABLE = "CREATE TABLE " + TABLE_STATISTIC +
+                "(" +
+                    STATISTIC_COLUMN_COD + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    STATISTIC_COLUMN_COD_TRACK_FK + " INTEGER REFERENCES " + TABLE_TRACK + " ON DELETE CASCADE, " +
+                    STATISTIC_COLUMN_TIME_STAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    STATISTIC_COLUMN_AVERAGE_CADENCE + " FLOAT, " +
+                    STATISTIC_COLUMN_AVERAGE_SPEED + " FLOAT, " +
+                    STATISTIC_COLUMN_ELAPSED_TIME + " INTEGER, " +
+                    STATISTIC_COLUMN_DISTANCE + " FLOAT" +
+                ")";
+
         db.execSQL(CREATE_TRACK_TABLE);
         db.execSQL(CREATE_LOCATION_TABLE);
+        db.execSQL(CREATE_STATISTIC_TABLE);
     }
 
     @Override
@@ -85,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(oldVersion != newVersion){
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRACK);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATION);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATISTIC);
             onCreate(db);
         }
     }
@@ -163,8 +176,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return trackList;
     }
 
-    public List<DataLocation> selectAllDataLocationsFromTrack(long trackCod){
-        List<DataLocation> dataLocationList = new ArrayList<>();
+    public List<Location> selectAllDataLocationsFromTrack(long trackCod){
+        List<Location> locationList = new ArrayList<>();
         String DATA_LOCATION_SELECT_QUERY =
                 String.format("SELECT latitude, longitude FROM %s WHERE %s = %s ORDER BY sequence",
                         TABLE_LOCATION, LOCATION_COLUMN_COD_TRACK_FK, Long.toString(trackCod));
@@ -175,12 +188,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do{
                 double latitude = cursor.getDouble(cursor.getColumnIndex(LOCATION_COLUMN_LATITUDE));
                 double longitude = cursor.getDouble(cursor.getColumnIndex(LOCATION_COLUMN_LONGITUDE));
-                dataLocationList.add(new DataLocation(latitude, longitude));
+                locationList.add(new Location(latitude, longitude));
             }while(cursor.moveToNext());
         }
 
         cursor.close();
-        return dataLocationList;
+        return locationList;
     }
 
 }

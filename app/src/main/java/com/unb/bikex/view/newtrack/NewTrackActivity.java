@@ -1,6 +1,5 @@
 package com.unb.bikex.view.newtrack;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -82,8 +81,8 @@ public class NewTrackActivity extends BaseActivity implements INewTrackView, OnM
                 .setTitle(R.string.track_name)
                 .setMessage(R.string.track_name_instruction)
                 .setView(trackNameEditText)
-                .setPositiveButton(R.string.track_name_dialog_button, null)
-                .setNegativeButton("Cancel", null)
+                .setPositiveButton(R.string.track_name_dialog_positive_button, null)
+                .setNegativeButton(R.string.track_name_dialog_negative_button, null)
                 .create();
         alert.setOnShowListener(this);
         alert.show();

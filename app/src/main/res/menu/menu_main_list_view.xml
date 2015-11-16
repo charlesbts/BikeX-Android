@@ -5,4 +5,7 @@
     <item android:id="@+id/delete"
         android:title="@string/menu_main_list_view_delete" />
 
+    <item android:id="@+id/statistic"
+        android:title="@string/menu_main_list_view_statistic"/>
+
 </menu>

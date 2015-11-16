@@ -12,12 +12,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.unb.bikex.model.main.Track;
+import com.unb.bikex.entity.Track;
 import com.unb.bikex.view.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.adapter.TrackAdapter;
 import com.unb.bikex.presenter.MainPresenter;
 import com.unb.bikex.view.newtrack.NewTrackActivity;
+import com.unb.bikex.view.statistic.StatisticActivity;
 import com.unb.bikex.view.track.TrackActivity;
 import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
 
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
     @Inject MainPresenter mainPresenter;
     @Inject TrackAdapter trackAdapter;
     public final static String COD_TRACK = "cod_track";
+    public final static String NAME_TRACK = "name_track";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
         Track track = (Track) trackAdapter.getItem(position);
         Intent intent = new Intent(MainActivity.this, TrackActivity.class);
         intent.putExtra(COD_TRACK, track.getCod());
+        intent.putExtra(NAME_TRACK, track.getName());
         startActivity(intent);
     }
 
@@ -100,6 +103,11 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
             case R.id.delete:
                 mainPresenter.onContextMenuDelete(track.getCod());
                 return true;
+            case R.id.statistic:
+                Intent intent = new Intent(MainActivity.this, StatisticActivity.class);
+                intent.putExtra(COD_TRACK, track.getCod());
+                intent.putExtra(NAME_TRACK, track.getName());
+                startActivity(intent);
             default:
                 return super.onContextItemSelected(item);
         }

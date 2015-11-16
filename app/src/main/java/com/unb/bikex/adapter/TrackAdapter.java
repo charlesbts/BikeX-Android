@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.unb.bikex.R;
-import com.unb.bikex.model.main.Track;
+import com.unb.bikex.entity.Track;
 
 import java.util.List;
 

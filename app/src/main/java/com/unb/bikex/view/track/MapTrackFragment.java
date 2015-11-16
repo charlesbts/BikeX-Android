@@ -38,6 +38,7 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
     private MapEvents mapEventsCallBack;
     private GoogleApiAvailability googleApiAvailability;
     private long trackCod;
+    private String trackName;
     private List<Marker> markerList = new ArrayList<>();
 
 
@@ -63,6 +64,7 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
         Bundle extras = getActivity().getIntent().getExtras();
         if(extras != null){
             trackCod = extras.getLong(MainActivity.COD_TRACK);
+            trackName = extras.getString(MainActivity.NAME_TRACK);
         }
     }
 
@@ -80,6 +82,7 @@ public class MapTrackFragment extends BaseFragment implements IMapTrackView, Goo
     @Override
     public void onResume(){
         super.onResume();
+        getActivity().setTitle(trackName);
         if(googleApiAvailability.isGooglePlayServicesAvailable(getActivity()) == ConnectionResult.SUCCESS) {
             setupMap();
             mapTrackPresenter.onResume(trackCod);

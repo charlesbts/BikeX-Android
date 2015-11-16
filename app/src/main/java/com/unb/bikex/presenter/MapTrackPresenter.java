@@ -1,9 +1,7 @@
 package com.unb.bikex.presenter;
 
 
-import android.util.Log;
-
-import com.unb.bikex.model.DataLocation;
+import com.unb.bikex.entity.Location;
 import com.unb.bikex.model.map.IMapModel;
 import com.unb.bikex.view.track.IMapTrackView;
 
@@ -22,15 +20,15 @@ public class MapTrackPresenter {
     }
 
     public void onResume(long extras){
-        List<DataLocation> dataLocationList = iMapModel.getDataLocationList(extras);
-        iMapTrackView.moveCamera(dataLocationList.get(0).getLatitude(), dataLocationList.get(0).getLongitude());
-        updateMarks(dataLocationList);
+        List<Location> locationList = iMapModel.getDataLocationList(extras);
+        iMapTrackView.moveCamera(locationList.get(0).getLatitude(), locationList.get(0).getLongitude());
+        updateMarks(locationList);
     }
 
-    private void updateMarks(List<DataLocation> dataLocationList){
-        if(!dataLocationList.isEmpty()) {
-            for (int i = 0; i < dataLocationList.size(); i++) {
-                iMapTrackView.drawRedMarker(dataLocationList.get(i).getLatitude(), dataLocationList.get(i).getLongitude());
+    private void updateMarks(List<Location> locationList){
+        if(!locationList.isEmpty()) {
+            for (int i = 0; i < locationList.size(); i++) {
+                iMapTrackView.drawRedMarker(locationList.get(i).getLatitude(), locationList.get(i).getLongitude());
             }
             iMapTrackView.changeColorInitialMarker();
         }

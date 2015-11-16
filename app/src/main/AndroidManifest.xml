@@ -58,6 +58,11 @@
             android:label="New Track" >
         </activity>
 
+        <activity
+            android:name=".view.statistic.StatisticActivity"
+            android:label="Statistics" >
+        </activity>
+
         <uses-library android:name="com.google.android.maps"/>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

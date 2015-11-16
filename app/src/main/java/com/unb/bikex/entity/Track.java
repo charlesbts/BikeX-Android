@@ -1,4 +1,4 @@
-package com.unb.bikex.model.main;
+package com.unb.bikex.entity;
 
 /**
  * Created by Charles on 10/24/2015.

@@ -1,14 +1,14 @@
-package com.unb.bikex.model;
+package com.unb.bikex.entity;
 
 
 /**
  * Created by Charles on 10/20/2015.
  */
-public class DataLocation {
+public class Location {
     private double latitude;
     private double longitude;
 
-    public DataLocation(double latitude, double longitude){
+    public Location(double latitude, double longitude){
         this.latitude = latitude;
         this.longitude = longitude;
     }

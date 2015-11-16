@@ -6,11 +6,15 @@
     <string name="stop_track_button_name">Stop Track</string>
     <string name="save_track_button_name">Save Track</string>
 
-    <string name="menu_main_list_view_delete">Delete...</string>
+    <string name="menu_main_list_view_delete">Delete Track</string>
+    <string name="menu_main_list_view_statistic">Track statistics</string>
+    <string name="statistic_text_view">Click to see the details</string>
+
 
     <string name="track_name">Track Name</string>
     <string name="track_name_instruction">Give a name to your track</string>
-    <string name="track_name_dialog_button">Save</string>
+    <string name="track_name_dialog_positive_button">Save</string>
+    <string name="track_name_dialog_negative_button">Cancel</string>
     <string name="new_track_success_message">Track saved</string>
     <string name="track_delete_error">Error deleting track</string>
     <string name="new_track_error_null_message">This field cannot be empty</string>

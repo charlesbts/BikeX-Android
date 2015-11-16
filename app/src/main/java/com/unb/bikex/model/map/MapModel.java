@@ -3,7 +3,7 @@ package com.unb.bikex.model.map;
 
 
 import com.unb.bikex.database.DatabaseHelper;
-import com.unb.bikex.model.DataLocation;
+import com.unb.bikex.entity.Location;
 import java.util.List;
 
 /**
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class MapModel implements IMapModel {
     private DatabaseHelper databaseHelper;
-    private List<DataLocation> locationDataList;
+    private List<Location> locationDataList;
     private int dataLocationPosition = -1;
     private boolean isFirstCall = true;
 
@@ -20,7 +20,7 @@ public class MapModel implements IMapModel {
     }
 
     @Override
-    public List<DataLocation> getDataLocationList(long trackCod) {
+    public List<Location> getDataLocationList(long trackCod) {
         if(isFirstCall) {
             locationDataList = databaseHelper.selectAllDataLocationsFromTrack(trackCod);
             isFirstCall = false;
