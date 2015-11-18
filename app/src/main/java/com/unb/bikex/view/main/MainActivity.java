@@ -1,8 +1,10 @@
 package com.unb.bikex.view.main;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -101,7 +103,7 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
         Track track = (Track) trackAdapter.getItem(info.position);
         switch(item.getItemId()) {
             case R.id.delete:
-                mainPresenter.onContextMenuDelete(track.getCod());
+                confirmDeleteAlertDialog(track.getCod());
                 return true;
             case R.id.statistic:
                 Intent intent = new Intent(MainActivity.this, StatisticActivity.class);
@@ -112,6 +114,22 @@ public class MainActivity extends BaseActivity implements IMainView, AdapterView
                 return super.onContextItemSelected(item);
         }
     }
+
+    private void confirmDeleteAlertDialog(final long cod){
+        AlertDialog alert = new AlertDialog.Builder(this)
+                .setTitle(R.string.track_delete_dialog_title)
+                .setMessage(R.string.track_delete_dialog_message)
+                .setPositiveButton(R.string.statistic_dialog_positive_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mainPresenter.onContextMenuDelete(cod);
+                    }
+                })
+                .setNegativeButton(R.string.track_name_dialog_negative_button, null)
+                .create();
+        alert.show();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

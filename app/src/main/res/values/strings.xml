@@ -7,9 +7,10 @@
     <string name="save_track_button_name">Save Track</string>
 
     <string name="menu_main_list_view_delete">Delete Track</string>
+
     <string name="menu_main_list_view_statistic">Track statistics</string>
     <string name="statistic_text_view">Click to see the details</string>
-
+    <string name="statistic_dialog_positive_button">OK</string>
 
     <string name="track_name">Track Name</string>
     <string name="track_name_instruction">Give a name to your track</string>
@@ -17,6 +18,8 @@
     <string name="track_name_dialog_negative_button">Cancel</string>
     <string name="new_track_success_message">Track saved</string>
     <string name="track_delete_error">Error deleting track</string>
+    <string name="track_delete_dialog_title">Delete confirmation</string>
+    <string name="track_delete_dialog_message">Do you want delete this track?</string>
     <string name="new_track_error_null_message">This field cannot be empty</string>
     <string name="new_track_error_exists_message">This name already exists</string>
 
@@ -25,8 +28,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_map_track">MapTrackActivity</string>
     <string name="title_activity_user_preferences">Preferences</string>
-    <string name="wheel_size_text_view">Wheel size: </string>
-    <string name="desired_cadence_header">Desired cadence: </string>
+    <string name="wheel_size_text_view">Wheel size</string>
+    <string name="desired_cadence_header">Desired cadence</string>
 
     <string name="hello_world">Hello world!</string>
 
@@ -37,19 +40,20 @@
     <string name="bluetooth_connection_success">Connected to: </string>
     <string name="bluetooth_enable_error">This feature requires bluetooth turned on</string>
 
-    <string name="speed_header">Speed </string>
-    <string name="cadence_header">Cadence </string>
-    <string name="distance_header">Distance </string>
-    <string name="shift_header">Shift </string>
-    <string name="average_speed_header">Average speed </string>
-    <string name="average_cadence_header">Average cadence </string>
+    <string name="speed_header">Speed</string>
+    <string name="elapsed_time_header">Elapsed time</string>
+    <string name="cadence_header">Cadence</string>
+    <string name="distance_header">Distance</string>
+    <string name="shift_header">Shift</string>
+    <string name="average_speed_header">Average speed</string>
+    <string name="average_cadence_header">Average cadence</string>
     <string name="speed_unit">km/h</string>
     <string name="cadence_unit">RPM</string>
     <string name="distance_unit">km</string>
 
     <string name="preferences_update_success">Preferences updated</string>
     <string name="preferences_update_message">Preferences should be update</string>
-    <string name="bluetooth_device_instruction">Bluetooth device(s):</string>
+    <string name="bluetooth_device_instruction">Bluetooth device(s)</string>
     <string name="wheel_size_unit">\'\'</string>
 
 </resources>

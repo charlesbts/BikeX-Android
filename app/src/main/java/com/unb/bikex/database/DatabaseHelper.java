@@ -9,9 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
 import com.unb.bikex.entity.Location;
+import com.unb.bikex.entity.Statistic;
 import com.unb.bikex.entity.Track;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /* Table names */
     private static final String TABLE_TRACK = "track";
     private static final String TABLE_LOCATION = "location";
-    private static final String TABLE_STATISTIC = "statistics";
+    private static final String TABLE_STATISTIC = "statistic";
 
     /* Track table columns*/
     private static final String TRACK_COLUMN_COD = "cod";
@@ -59,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     TRACK_COLUMN_COD + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     TRACK_COLUMN_NAME + " TEXT" +
                 ")";
+
         String CREATE_LOCATION_TABLE = "CREATE TABLE " + TABLE_LOCATION +
                 "(" +
                     LOCATION_COLUMN_COD + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -72,7 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "(" +
                     STATISTIC_COLUMN_COD + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     STATISTIC_COLUMN_COD_TRACK_FK + " INTEGER REFERENCES " + TABLE_TRACK + " ON DELETE CASCADE, " +
-                    STATISTIC_COLUMN_TIME_STAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+                    STATISTIC_COLUMN_TIME_STAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                     STATISTIC_COLUMN_AVERAGE_CADENCE + " FLOAT, " +
                     STATISTIC_COLUMN_AVERAGE_SPEED + " FLOAT, " +
                     STATISTIC_COLUMN_ELAPSED_TIME + " INTEGER, " +
@@ -178,12 +182,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Location> selectAllDataLocationsFromTrack(long trackCod){
         List<Location> locationList = new ArrayList<>();
-        String DATA_LOCATION_SELECT_QUERY =
+        String LOCATION_SELECT_QUERY =
                 String.format("SELECT latitude, longitude FROM %s WHERE %s = %s ORDER BY sequence",
                         TABLE_LOCATION, LOCATION_COLUMN_COD_TRACK_FK, Long.toString(trackCod));
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery(DATA_LOCATION_SELECT_QUERY, null);
+        Cursor cursor = db.rawQuery(LOCATION_SELECT_QUERY, null);
         if(cursor.moveToFirst()){
             do{
                 double latitude = cursor.getDouble(cursor.getColumnIndex(LOCATION_COLUMN_LATITUDE));
@@ -194,6 +198,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
         return locationList;
+    }
+
+    public long insertStatistic(long trackCod, Statistic statistic){
+        long codTrack;
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.beginTransaction();
+        ContentValues values = new ContentValues();
+        values.put(STATISTIC_COLUMN_COD_TRACK_FK, trackCod);
+        values.put(STATISTIC_COLUMN_TIME_STAMP, new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
+        values.put(STATISTIC_COLUMN_AVERAGE_CADENCE, statistic.getAverageCadence());
+        values.put(STATISTIC_COLUMN_AVERAGE_SPEED, statistic.getAverageSpeed());
+        values.put(STATISTIC_COLUMN_ELAPSED_TIME, statistic.getElapsedTime());
+        values.put(STATISTIC_COLUMN_DISTANCE, statistic.getDistance());
+        codTrack = db.insert(TABLE_STATISTIC, null, values);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+
+        return codTrack;
+    }
+
+    public List<Statistic> selectAllStatisticFromTrack(long trackCod){
+        List<Statistic> statisticList = new ArrayList<>();
+        String STATISTIC_SELECT_QUERY =
+                String.format("SELECT %s, %s, %s, %s, %s, %s FROM %s WHERE %s = %s ORDER BY %s",
+                        STATISTIC_COLUMN_COD, STATISTIC_COLUMN_TIME_STAMP, STATISTIC_COLUMN_AVERAGE_CADENCE,
+                        STATISTIC_COLUMN_AVERAGE_SPEED, STATISTIC_COLUMN_ELAPSED_TIME, STATISTIC_COLUMN_DISTANCE,
+                        TABLE_STATISTIC, STATISTIC_COLUMN_COD_TRACK_FK, Long.toString(trackCod), STATISTIC_COLUMN_TIME_STAMP);
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(STATISTIC_SELECT_QUERY, null);
+        if(cursor.moveToFirst()){
+            do{
+                long cod = cursor.getLong(cursor.getColumnIndex(STATISTIC_COLUMN_COD));
+                String timeStamp = cursor.getString(cursor.getColumnIndex(STATISTIC_COLUMN_TIME_STAMP));
+                float averageCadence = cursor.getFloat(cursor.getColumnIndex(STATISTIC_COLUMN_AVERAGE_CADENCE));
+                float averageSpeed = cursor.getFloat(cursor.getColumnIndex(STATISTIC_COLUMN_AVERAGE_SPEED));
+                int elapsedTime = cursor.getInt(cursor.getColumnIndex(STATISTIC_COLUMN_ELAPSED_TIME));
+                float distance = cursor.getFloat(cursor.getColumnIndex(STATISTIC_COLUMN_DISTANCE));
+                statisticList.add(new Statistic(cod, timeStamp, averageCadence, averageSpeed, elapsedTime, distance));
+            }while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        return statisticList;
     }
 
 }

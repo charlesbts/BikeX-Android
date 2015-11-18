@@ -18,4 +18,5 @@ public class StatisticPresenter {
     public void onResume(long extras){
         iStatisticView.setItemsStatisticListView(iStatisticModel.getStatisticList(extras));
     }
+
 }

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="@string/average_cadence_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_view_style"
+        android:textColor="#EFFFFF"
+        android:id="@+id/textView"
+        android:layout_marginLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/average_cadence"
+        android:text="000.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/elapsed_time_header"
+        android:layout_alignStart="@+id/elapsed_time_header" />
+
+    <TextView
+        android:id="@+id/average_cadence_unit"
+        android:text="@string/cadence_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/elapsed_time_header"
+        android:layout_toRightOf="@+id/average_cadence"
+        android:layout_toEndOf="@+id/average_cadence"
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp" />
+
+    <TextView
+        android:text="@string/average_speed_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#EFFFFF"
+        android:id="@+id/textView2"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp"
+        android:layout_above="@+id/average_speed"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+
+    <TextView
+        android:id="@+id/average_speed"
+        android:text="000.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/average_speed_unit"
+        android:text="@string/speed_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignTop="@+id/average_speed"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+
+    <TextView
+        android:text="@string/elapsed_time_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_view_style"
+        android:textColor="#EFFFFF"
+        android:id="@+id/elapsed_time_header"
+        android:layout_marginLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:layout_below="@+id/average_cadence" />
+
+    <TextView
+        android:id="@+id/elapsed_time"
+        android:text="000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/elapsed_time_header"
+        android:layout_alignLeft="@+id/average_cadence"
+        android:layout_alignStart="@+id/average_cadence" />
+
+    <TextView
+        android:id="@+id/elapsed_time_unit"
+        android:text="s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/elapsed_time_header"
+        android:layout_alignLeft="@+id/average_cadence_unit"
+        android:layout_alignStart="@+id/average_cadence_unit" />
+
+    <TextView
+        android:text="@string/distance_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#EFFFFF"
+        android:id="@+id/distance_header"
+        android:layout_above="@+id/elapsed_time"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:text="000.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/distance_header"
+        android:layout_alignLeft="@+id/average_speed"
+        android:layout_alignStart="@+id/average_speed" />
+
+    <TextView
+        android:id="@+id/distance_unit"
+        android:text="@string/distance_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignTop="@+id/distance"
+        android:layout_alignLeft="@+id/average_speed_unit"
+        android:layout_alignStart="@+id/average_speed_unit" />
+
+</RelativeLayout>
