@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.unb.bikex.R;
 import com.unb.bikex.presenter.SensorPresenter;
 import com.unb.bikex.view.BaseFragment;
+import com.unb.bikex.view.main.MainActivity;
 import com.unb.bikex.view.userpreferences.UserPreferencesActivity;
 
 
@@ -42,11 +43,21 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
     private Chronometer chronometer;
     private ProgressDialog bluetoothConnectionProgressDialog;
     private boolean isTrackOnFlag = false;
+    private long trackCod;
 
 
     @Override
     public void initPresenterView(){
         ((TrackActivity) getActivity()).trackModule.setiSensorView(this);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstance){
+        super.onActivityCreated(savedInstance);
+        Bundle extras = getActivity().getIntent().getExtras();
+        if(extras != null){
+            trackCod = extras.getLong(MainActivity.COD_TRACK);
+        }
     }
 
     @Override
@@ -114,6 +125,11 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
     @Override
     public void showSuccessBluetoothConnection(String nameDevice){
         Toast.makeText(getActivity(), getString(R.string.bluetooth_connection_success) + nameDevice, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showSuccessTrackStatistics(){
+        Toast.makeText(getActivity(), getString(R.string.track_statistics_saved), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -195,7 +211,9 @@ public class SensorFragment extends BaseFragment implements ISensorView, View.On
     }
 
     public void onMapStopTrack(){
+        long millis = SystemClock.elapsedRealtime() - chronometer.getBase(); /* Can I improve this? */
         chronometer.stop();
+        sensorPresenter.saveTrackStatistics(trackCod, millis);
     }
 
 }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.ExpandableListView;
 
 import com.unb.bikex.R;
-import com.unb.bikex.adapter.StatisticAdapter;
 import com.unb.bikex.adapter.StatisticExpandableAdapter;
 import com.unb.bikex.entity.Statistic;
 import com.unb.bikex.presenter.StatisticPresenter;

@@ -42,6 +42,10 @@ public class SensorPresenter implements IBikeListener {
         iBikeModel.getBluetoothDisconnection();
     }
 
+    public void saveTrackStatistics(long trackCod, long timeMillis){
+        iBikeModel.persistTrackStatistics(trackCod, timeMillis);
+        iSensorView.showSuccessTrackStatistics();
+    }
 
     @Override
     public void setErrorBluetoothConnection(){

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.unb.bikex.R;
 import com.unb.bikex.entity.Statistic;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Charles on 11/17/2015.
@@ -57,10 +58,13 @@ public class StatisticExpandableAdapter extends BaseExpandableListAdapter {
             viewHolder = (ViewHolderChild) convertView.getTag();
         }
 
-        viewHolder.averageCadence.setText(Float.toString(statistic.getAverageCadence()));
-        viewHolder.averageSpeed.setText(Float.toString(statistic.getAverageSpeed()));
-        viewHolder.elapsedTime.setText(Integer.toString(statistic.getElapsedTime()));
-        viewHolder.distance.setText(Float.toString(statistic.getDistance()));
+        viewHolder.averageCadence.setText(String.format("%.1f", statistic.getAverageCadence()));
+        viewHolder.averageSpeed.setText(String.format("%.1f", statistic.getAverageSpeed()));
+        viewHolder.elapsedTime.setText(String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(statistic.getElapsedTime()),
+                TimeUnit.MILLISECONDS.toSeconds(statistic.getElapsedTime()) -
+                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(statistic.getElapsedTime()))));
+        viewHolder.distance.setText(String.format("%.1f", statistic.getDistance()));
 
         return convertView;
     }

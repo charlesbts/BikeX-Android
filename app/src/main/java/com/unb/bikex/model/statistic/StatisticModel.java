@@ -18,13 +18,9 @@ public class StatisticModel implements IStatisticModel {
 
     @Override
     public List<Statistic> getStatisticList(long codTrack){
-        List<Statistic> mockList;
-        Statistic statistic = new Statistic(1, "12/02/12", 26, 33, 34, 111);
-        databaseHelper.insertStatistic(codTrack, statistic);
-        Statistic statistic2 = new Statistic(2, "13/03/13", 23, 23, 38, 10);
-        databaseHelper.insertStatistic(codTrack, statistic2);
-        mockList = databaseHelper.selectAllStatisticFromTrack(codTrack);
+        List<Statistic> statisticList;
+        statisticList = databaseHelper.selectAllStatisticFromTrack(codTrack);
 
-        return mockList;
+        return statisticList;
     }
 }

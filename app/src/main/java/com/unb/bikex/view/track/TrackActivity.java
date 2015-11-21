@@ -7,6 +7,8 @@ import android.view.WindowManager;
 import com.unb.bikex.view.BaseActivity;
 import com.unb.bikex.R;
 import com.unb.bikex.adapter.FragmentAdapter;
+import com.unb.bikex.view.main.MainActivity;
+
 import java.util.Arrays;
 import java.util.List;
 

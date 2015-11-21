@@ -8,11 +8,11 @@ public class Statistic {
     private String timeStamp;
     private float averageCadence;
     private float averageSpeed;
-    private int elapsedTime;
+    private long elapsedTime;
     private float distance;
 
     public Statistic(long cod, String timeStamp, float averageCadence,
-                     float averageSpeed, int elapsedTime, float distance){
+                     float averageSpeed, long elapsedTime, float distance){
         this.cod = cod;
         this.timeStamp = timeStamp;
         this.averageCadence = averageCadence;
@@ -37,7 +37,7 @@ public class Statistic {
         return averageSpeed;
     }
 
-    public int getElapsedTime(){
+    public long getElapsedTime(){
         return elapsedTime;
     }
 

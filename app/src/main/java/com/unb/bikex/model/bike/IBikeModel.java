@@ -13,4 +13,5 @@ public interface IBikeModel {
     void getBluetoothDisconnection();
     void readForever();
     void prepareUserDependency() throws NullPointerException;
+    void persistTrackStatistics(long trackCod, long timeMilis);
 }

@@ -39,8 +39,8 @@ public class ModelModule {
 
     @Provides
     public IBikeModel provideIBikeModel(IBluetoothConnection iBluetoothConnection, IBluetoothConnected iBluetoothConnected,
-                                        UserSharedPreferences userSharedPreferences){
-        return new BikeModel(iBluetoothConnection, iBluetoothConnected,  userSharedPreferences);
+                                        UserSharedPreferences userSharedPreferences, DatabaseHelper databaseHelper){
+        return new BikeModel(iBluetoothConnection, iBluetoothConnected, userSharedPreferences, databaseHelper);
     }
 
     @Provides

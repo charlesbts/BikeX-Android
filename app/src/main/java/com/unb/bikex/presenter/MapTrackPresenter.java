@@ -11,8 +11,9 @@ import java.util.List;
  * Created by Charles on 10/20/2015.
  */
 public class MapTrackPresenter {
-    IMapTrackView iMapTrackView;
-    IMapModel iMapModel;
+    private IMapTrackView iMapTrackView;
+    private IMapModel iMapModel;
+    private boolean isFirst = true;
 
     public MapTrackPresenter(IMapTrackView iMapTrackView, IMapModel iMapModel){
         this.iMapTrackView = iMapTrackView;
@@ -20,9 +21,12 @@ public class MapTrackPresenter {
     }
 
     public void onResume(long extras){
-        List<Location> locationList = iMapModel.getDataLocationList(extras);
-        iMapTrackView.moveCamera(locationList.get(0).getLatitude(), locationList.get(0).getLongitude());
-        updateMarks(locationList);
+        if(isFirst) {
+            List<Location> locationList = iMapModel.getDataLocationList(extras);
+            iMapTrackView.moveCamera(locationList.get(0).getLatitude(), locationList.get(0).getLongitude());
+            updateMarks(locationList);
+            isFirst = false;
+        }
     }
 
     private void updateMarks(List<Location> locationList){

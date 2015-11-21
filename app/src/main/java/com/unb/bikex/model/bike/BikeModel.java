@@ -2,8 +2,8 @@ package com.unb.bikex.model.bike;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-
+import com.unb.bikex.database.DatabaseHelper;
+import com.unb.bikex.entity.Statistic;
 import com.unb.bikex.presenter.IBikeListener;
 import com.unb.bikex.sharedpreferences.UserSharedPreferences;
 import com.unb.bikex.threadutils.ICallbackThread;
@@ -43,6 +43,7 @@ public class BikeModel implements IBikeModel, ICallbackThread {
     private int wheelSize;
     private IBluetoothConnected iBluetoothConnected;
     private UserSharedPreferences userSharedPreferences;
+    private DatabaseHelper databaseHelper;
     private IBikeListener iBikeListener;
     private float speed = 0, cadence = 0, distance = 0, averageSpeed = 0, averageCadence = 0;
     private String shift = SHIFT_OK;
@@ -50,10 +51,11 @@ public class BikeModel implements IBikeModel, ICallbackThread {
 
     @Inject
     public BikeModel(IBluetoothConnection iBluetoothConnection, IBluetoothConnected iBluetoothConnected,
-                     UserSharedPreferences userSharedPreferences){
+                     UserSharedPreferences userSharedPreferences, DatabaseHelper databaseHelper){
         this.iBluetoothConnection = iBluetoothConnection;
         this.iBluetoothConnected = iBluetoothConnected;
         this.userSharedPreferences = userSharedPreferences;
+        this.databaseHelper = databaseHelper;
     }
 
     @Override
@@ -234,5 +236,11 @@ public class BikeModel implements IBikeModel, ICallbackThread {
             return 0;
     }
 
+
+    public void persistTrackStatistics(long trackCod, long timeMillis){
+        isDoneFlag = false;
+        Statistic statistic = new Statistic(-1, null, averageCadence/cadenceCount, averageSpeed/speedCount, timeMillis, distance*DISTANCE_CONSTANT);
+        databaseHelper.insertStatistic(trackCod, statistic);
+    }
 
 }

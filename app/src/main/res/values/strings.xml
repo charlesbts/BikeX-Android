@@ -11,6 +11,7 @@
     <string name="menu_main_list_view_statistic">Track statistics</string>
     <string name="statistic_text_view">Click to see the details</string>
     <string name="statistic_dialog_positive_button">OK</string>
+    <string name="track_statistics_saved">Track statistics saved</string>
 
     <string name="track_name">Track Name</string>
     <string name="track_name_instruction">Give a name to your track</string>
